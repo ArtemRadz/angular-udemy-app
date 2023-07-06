@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIf, NgStyle, NgClass, NgFor } from '@angular/common';
 
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './features/header/header.component';
 
 @Component({
   standalone: true,
