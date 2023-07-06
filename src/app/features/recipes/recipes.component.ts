@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RecipeListComponent, RecipeDetailComponent],
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

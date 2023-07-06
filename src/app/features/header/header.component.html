@@ -1,10 +1,16 @@
-<header class="flex justify-between items-center">
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
+<header
+  class="container mx-auto px-3 sm:px-0 flex justify-center items-center h-24">
+  <div class="basis-2/6">
+    <a href="#">Recipe Book</a>
+  </div>
+  <nav class="basis-full">
+    <ul class="flex space-x-16">
+      <li><a href="#">Recipes</a></li>
+      <li><a href="#">Shopping List</a></li>
     </ul>
   </nav>
+  <select class="ud-select">
+    <option value="save">Save Data</option>
+    <option value="fetch">Fetch Data</option>
+  </select>
 </header>

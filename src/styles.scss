@@ -1,3 +1,21 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+@layer base {
+    .ud-select {
+        @apply p-2 pr-0;
+        &, option {
+            @apply bg-[#202123] text-white;
+        }
+    }
+    
+    .ud-input {
+        @apply bg-[#40414e] px-2 py-1;
+    }
+
+    .ud-btn {
+        @apply bg-[#343540] text-white py-2 px-3 rounded-md;
+    }
+}

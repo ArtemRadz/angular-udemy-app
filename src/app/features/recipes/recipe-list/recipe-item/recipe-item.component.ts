@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Recipe } from '../../state/recipe.model';
 
 @Component({
   selector: 'app-recipe-item',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './recipe-item.component.html',
   styleUrls: ['./recipe-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipeItemComponent {}
+export class RecipeItemComponent {
+  @Input() recipe!: Recipe;
+}
