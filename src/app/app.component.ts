@@ -5,6 +5,8 @@ import { NgIf, NgStyle, NgClass, NgFor } from '@angular/common';
 import { HeaderComponent } from './features/header/header.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
 import { ShoppingListComponent } from './features/shopping-list/shopping-list.component';
+import { CockpitComponent } from './server-test-app/cockpit/cockpit.component';
+import { ServerItemComponent } from './server-test-app/server-item/server-item.component';
 
 @Component({
   standalone: true,
@@ -20,7 +22,15 @@ import { ShoppingListComponent } from './features/shopping-list/shopping-list.co
     NgFor,
     RecipesComponent,
     ShoppingListComponent,
+    CockpitComponent,
+    ServerItemComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  servers: any[] = [];
+
+  addServer(server: any) {
+    this.servers.push(server);
+  }
+}

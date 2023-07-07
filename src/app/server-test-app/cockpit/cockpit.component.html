@@ -1,0 +1,26 @@
+<div class="text-white space-y-4">
+  <div class="flex justify-between items-center">
+    <label class="basis-1/3" for="server-name">Server Name</label>
+    <input
+      class="flex-1 ud-input"
+      type="text"
+      id="server-name"
+      [(ngModel)]="serverName" />
+  </div>
+  <div class="flex justify-between items-center">
+    <label class="basis-1/3" for="server-content">Server Content</label>
+    <input
+      class="flex-1 ud-input"
+      type="text"
+      id="server-content"
+      [(ngModel)]="serverContent" />
+  </div>
+  <div class="space-x-6">
+    <button class="ud-btn" type="submit" (click)="onAddServer()">
+      Add Server
+    </button>
+    <button class="ud-btn" type="button" (click)="onAddBlueprint()">
+      Add Server Blueprint
+    </button>
+  </div>
+</div>

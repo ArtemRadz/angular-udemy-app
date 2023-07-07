@@ -2,7 +2,12 @@
 
 <main class="bg-[#444653] flex-1">
   <div class="container mx-auto py-4 px-3 sm:px-0 space-x-6">
-    <app-recipes></app-recipes>
-    <app-shopping-list></app-shopping-list>
+    <app-cockpit (addServer)="addServer($event)"></app-cockpit>
+    <app-server-item
+      *ngFor="let server of servers"
+      [server]="server"></app-server-item>
+
+    <!-- <app-recipes></app-recipes>
+    <app-shopping-list></app-shopping-list> -->
   </div>
 </main>
