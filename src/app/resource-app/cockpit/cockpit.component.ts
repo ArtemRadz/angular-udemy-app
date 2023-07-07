@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { Resource, ResourceType } from '../state/server.model';
+
 @Component({
   selector: 'app-cockpit',
   standalone: true,
@@ -15,24 +17,17 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CockpitComponent {
-  @Output() addServer = new EventEmitter();
+  @Output() createdResource = new EventEmitter<Resource>();
+  resourceType = ResourceType;
 
-  serverName = '';
-  serverContent = '';
+  resourceName = '';
+  resourceContent = '';
 
-  onAddServer() {
-    this.addServer.emit({
-      type: 'server',
-      name: this.serverName,
-      content: this.serverContent,
-    });
-  }
-
-  onAddBlueprint() {
-    this.addServer.emit({
-      type: 'blueprint',
-      name: this.serverName,
-      content: this.serverContent,
+  onAddResource(resourceType: ResourceType) {
+    this.createdResource.emit({
+      type: resourceType,
+      name: this.resourceName,
+      content: this.resourceContent,
     });
   }
 }

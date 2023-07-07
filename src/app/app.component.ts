@@ -5,8 +5,10 @@ import { NgIf, NgStyle, NgClass, NgFor } from '@angular/common';
 import { HeaderComponent } from './features/header/header.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
 import { ShoppingListComponent } from './features/shopping-list/shopping-list.component';
-import { CockpitComponent } from './server-test-app/cockpit/cockpit.component';
-import { ServerItemComponent } from './server-test-app/server-item/server-item.component';
+
+import { Resource } from './resource-app/state/server.model';
+import { CockpitComponent } from './resource-app/cockpit/cockpit.component';
+import { ServerItemComponent } from './resource-app/server-item/server-item.component';
 
 @Component({
   standalone: true,
@@ -28,9 +30,9 @@ import { ServerItemComponent } from './server-test-app/server-item/server-item.c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  servers: any[] = [];
+  resources: Resource[] = [];
 
-  addServer(server: any) {
-    this.servers.push(server);
+  addedResources(resource: Resource) {
+    this.resources.push(resource);
   }
 }

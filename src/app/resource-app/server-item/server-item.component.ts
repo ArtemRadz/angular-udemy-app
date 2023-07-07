@@ -1,6 +1,8 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { Resource, ResourceType } from '../state/server.model';
+
 @Component({
   selector: 'app-server-item',
   standalone: true,
@@ -10,5 +12,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServerItemComponent {
-  @Input() server!: any;
+  @Input() resource!: Resource;
+
+  resourceType = ResourceType;
 }

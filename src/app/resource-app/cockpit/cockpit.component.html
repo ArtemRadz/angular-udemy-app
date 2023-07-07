@@ -1,0 +1,33 @@
+<div class="text-white space-y-4">
+  <div class="flex justify-between items-center">
+    <label class="basis-1/3" for="resource-name">Resource Name</label>
+    <input
+      class="flex-1 ud-input"
+      type="text"
+      id="resource-name"
+      [(ngModel)]="resourceName" />
+  </div>
+  <div class="flex justify-between items-center">
+    <label class="basis-1/3" for="resource-content">Resource Content</label>
+    <input
+      class="flex-1 ud-input"
+      type="text"
+      id="resource-content"
+      [(ngModel)]="resourceContent"
+      #content />
+  </div>
+  <div class="space-x-6">
+    <button
+      class="ud-btn"
+      type="submit"
+      (click)="onAddResource(resourceType.Server)">
+      Add Server
+    </button>
+    <button
+      class="ud-btn"
+      type="button"
+      (click)="onAddResource(resourceType.Blueprint)">
+      Add Server Blueprint
+    </button>
+  </div>
+</div>
