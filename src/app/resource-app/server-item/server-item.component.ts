@@ -1,5 +1,12 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 
 import { Resource, ResourceType } from '../state/server.model';
 
@@ -13,6 +20,8 @@ import { Resource, ResourceType } from '../state/server.model';
 })
 export class ServerItemComponent {
   @Input() resource!: Resource;
+  @ViewChild('heading', { static: true }) header!: ElementRef;
+  @ContentChild('contentChild', { static: true }) contentChild!: ElementRef;
 
   resourceType = ResourceType;
 }

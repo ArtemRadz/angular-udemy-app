@@ -1,13 +1,4 @@
-<div *ngIf="resource">
-  <h1>{{ resource.name }}</h1>
-  <p>
-    <strong
-      *ngIf="resource.type === resourceType.Server; else blueprint"
-      class="text-red-500"
-      >{{ resource.content }}</strong
-    >
-    <ng-template #blueprint>
-      <em class="text-blue-500">{{ resource.content }}</em>
-    </ng-template>
-  </p>
+<div>
+  <h1 #heading>{{ resource.name }}</h1>
+  <ng-content></ng-content>
 </div>

@@ -1,5 +1,6 @@
 <div class="w-1/3 space-y-6">
-  <app-shopping-edit></app-shopping-edit>
+  <app-shopping-edit
+    (ingredientAdded)="onIngredientAdded($event)"></app-shopping-edit>
   <ul class="space-y-2">
     <li
       *ngFor="let ingredient of ingredients"

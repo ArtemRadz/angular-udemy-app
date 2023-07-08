@@ -6,7 +6,7 @@ import { HeaderComponent } from './features/header/header.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
 import { ShoppingListComponent } from './features/shopping-list/shopping-list.component';
 
-import { Resource } from './resource-app/state/server.model';
+// import { Resource, ResourceType } from './resource-app/state/server.model';
 import { CockpitComponent } from './resource-app/cockpit/cockpit.component';
 import { ServerItemComponent } from './resource-app/server-item/server-item.component';
 
@@ -30,9 +30,15 @@ import { ServerItemComponent } from './resource-app/server-item/server-item.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  resources: Resource[] = [];
+  // resources: Resource[] = [];
+  // resourceType = ResourceType;
+  // addedResources(resource: Resource) {
+  //   this.resources.push(resource);
+  // }
 
-  addedResources(resource: Resource) {
-    this.resources.push(resource);
+  loadedFeature = 'recipes';
+
+  onNavigate(feature: string) {
+    this.loadedFeature = feature;
   }
 }

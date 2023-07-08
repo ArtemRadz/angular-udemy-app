@@ -1,12 +1,12 @@
 <div class="text-white">
-  <form class="space-y-4">
+  <form class="space-y-4" (ngSubmit)="onAdd()">
     <div class="flex justify-between items-center">
       <label class="basis-1/3" for="name">Name</label>
-      <input class="flex-1 ud-input" type="text" id="name" />
+      <input class="flex-1 ud-input" type="text" id="name" #nameInput />
     </div>
     <div class="flex justify-between items-center">
       <label class="basis-1/3" for="amount">Amount</label>
-      <input class="flex-1 ud-input" type="text" id="amount" />
+      <input class="flex-1 ud-input" type="text" id="amount" #amountInput />
     </div>
     <div class="space-x-6">
       <button class="ud-btn bg-green-500" type="submit">Add</button>

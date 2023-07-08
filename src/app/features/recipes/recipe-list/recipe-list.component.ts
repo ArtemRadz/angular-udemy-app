@@ -1,5 +1,10 @@
 import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { Recipe } from '../state/recipe.model';
 import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 
@@ -12,6 +17,8 @@ import { RecipeItemComponent } from './recipe-item/recipe-item.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeListComponent {
+  @Output() selectedRecipe = new EventEmitter<Recipe>();
+
   recipes: Recipe[] = [
     new Recipe(
       'Spaghetti Bolognese',
@@ -29,4 +36,8 @@ export class RecipeListComponent {
       'https://media.istockphoto.com/id/162524197/photo/chicken-curry-and-rice-on-black-plate-on-bamboo-matting.jpg?s=612x612&w=0&k=20&c=LOlfCxc2psg4zTq2Ph3wvIyITJTLSQb6BqhnDkAxJYQ='
     ),
   ];
+
+  onSelectRecipe(recipe: Recipe) {
+    this.selectedRecipe.emit(recipe);
+  }
 }

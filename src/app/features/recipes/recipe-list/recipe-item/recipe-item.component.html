@@ -1,12 +1,12 @@
-<a href="#">
-  <div class="h-64 w-64 overflow-hidden rounded-full mx-auto">
-    <img
-      [src]="recipe.imagePath"
-      [alt]="recipe.name"
-      class="w-auto h-full max-w-none -ml-[50px]" />
-  </div>
-  <div class="text-center mt-4 text-white">
+<button class="flex justify-between items-center w-full">
+  <div class="basis-2/3 text-center mt-4 text-white">
     <p class="text-xl">{{ recipe.name }}</p>
     <p class="italic">{{ recipe.desc }}</p>
   </div>
-</a>
+  <div class="h-32 w-32 overflow-hidden rounded-full">
+    <img
+      [src]="recipe.imagePath"
+      [alt]="recipe.name"
+      class="w-auto h-full max-w-none -ml-[25px]" />
+  </div>
+</button>

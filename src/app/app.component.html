@@ -1,13 +1,22 @@
-<app-header></app-header>
+<app-header (featureSelected)="onNavigate($event)"></app-header>
 
 <main class="bg-[#444653] flex-1">
   <div class="container mx-auto py-4 px-3 sm:px-0 space-x-6">
-    <app-cockpit (createdResource)="addedResources($event)"></app-cockpit>
-    <app-server-item
-      *ngFor="let resource of resources"
-      [resource]="resource"></app-server-item>
+    <!-- <app-cockpit (createdResource)="addedResources($event)"></app-cockpit>
+    <app-server-item *ngFor="let resource of resources" [resource]="resource">
+      <p #contentChild>
+        <strong
+          *ngIf="resource.type === resourceType.Server; else blueprint"
+          class="text-red-500"
+          >{{ resource.content }}</strong
+        >
+        <ng-template #blueprint>
+          <em class="text-blue-500">{{ resource.content }}</em>
+        </ng-template>
+      </p>
+    </app-server-item> -->
 
-    <!-- <app-recipes></app-recipes>
-    <app-shopping-list></app-shopping-list> -->
+    <app-recipes *ngIf="loadedFeature === 'recipes'"></app-recipes>
+    <app-shopping-list *ngIf="loadedFeature !== 'recipes'"></app-shopping-list>
   </div>
 </main>
