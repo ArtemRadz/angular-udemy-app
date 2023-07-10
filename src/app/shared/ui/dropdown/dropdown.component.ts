@@ -1,14 +1,17 @@
 import { NgIf } from '@angular/common';
 import {
   AfterContentInit,
-  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
+  forwardRef,
+  inject,
   QueryList,
 } from '@angular/core';
 
 import { DropdownOptionComponent } from '../dropdown-option/dropdown-option.component';
 import { Subscription, startWith } from 'rxjs';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-dropdown',
@@ -16,10 +19,18 @@ import { Subscription, startWith } from 'rxjs';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   imports: [NgIf],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DropdownComponent),
+      multi: true,
+    },
+  ],
 })
-export class DropdownComponent implements AfterContentInit {
-  value!: string | null;
+export class DropdownComponent
+  implements AfterContentInit, ControlValueAccessor
+{
+  displayValue!: string | null;
   dropdownOpen = false;
 
   @ContentChildren(DropdownOptionComponent)
@@ -27,7 +38,37 @@ export class DropdownComponent implements AfterContentInit {
 
   subs = new Subscription();
 
-  compareWith: (val1: any, val2: any) => boolean = (v1, v2) => v1 === v2;
+  protected _onChange!: (_: any) => void;
+  protected _onTouched!: () => void;
+  protected _value!: any | undefined;
+  protected _disabled = false;
+
+  protected readonly cf = inject(ChangeDetectorRef);
+
+  get value() {
+    return this._value;
+  }
+
+  get disabled(): boolean {
+    return this._disabled;
+  }
+
+  writeValue(obj: any | undefined): void {
+    this._value = obj;
+    this.cf.markForCheck();
+  }
+
+  registerOnChange(fn: (_: any) => void): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this._disabled = disabled;
+  }
 
   ngAfterContentInit() {
     this.data.changes.pipe(startWith([])).subscribe(() => {
@@ -47,8 +88,8 @@ export class DropdownComponent implements AfterContentInit {
         t.selectedStateChange.subscribe(value => {
           this.unselectPrevious();
           t.selected = true;
-          this.value = t.innerText;
-          this.closeDropdown();
+          this.displayValue = t.innerText;
+          this.select(value);
         })
       );
     });
@@ -66,23 +107,26 @@ export class DropdownComponent implements AfterContentInit {
     this.dropdownOpen = false;
   }
 
+  select(value: any) {
+    this._value = value;
+    this._onChange(this._value);
+    this.closeDropdown();
+  }
+
   private selectOption(value: any) {
     if (this.data && value !== undefined) {
-      const shouldSelect = this.data.find(c =>
-        this.compareWith(c.value, value)
-      );
+      const shouldSelect = this.data.find(c => value === c.value);
       if (shouldSelect) {
         shouldSelect.selected = true;
-        this.value = shouldSelect.innerText;
+        this.displayValue = shouldSelect.innerText;
       }
     }
   }
 
   private unselectPrevious() {
-    this.value = null;
-    const comp = this.data.find(c => this.compareWith(c.value, this.value));
-    if (comp) {
+    this.displayValue = null;
+    this.data.forEach(comp => {
       comp.selected = false;
-    }
+    });
   }
 }

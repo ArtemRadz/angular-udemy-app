@@ -1,3 +1,7 @@
 :host {
     @apply block bg-[#202123] text-white;
 }
+
+.active {
+    @apply text-fuchsia-700;
+}

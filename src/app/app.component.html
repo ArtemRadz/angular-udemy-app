@@ -16,7 +16,19 @@
       </p>
     </app-server-item> -->
 
-    <app-recipes *ngIf="loadedFeature === 'recipes'"></app-recipes>
-    <app-shopping-list *ngIf="loadedFeature !== 'recipes'"></app-shopping-list>
+    <!-- <app-recipes *ngIf="loadedFeature === PAGE_TITLE.RECIPES"></app-recipes>
+    <app-shopping-list
+      *ngIf="loadedFeature !== PAGE_TITLE.RECIPES"></app-shopping-list> -->
+
+    <!-- <button (click)="state = !state">Change</button>
+    <div *appUnless="state">
+      <p [appHighlight]="'red'" [defaultColor]="'yellow'">Highlight</p>
+    </div> -->
+
+    <app-dropdown [(ngModel)]="dropdownSelected">
+      <app-dropdown-option *ngFor="let item of dropdownData" [value]="item">
+        {{ item.name }}
+      </app-dropdown-option>
+    </app-dropdown>
   </div>
 </main>

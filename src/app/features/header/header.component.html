@@ -5,9 +5,11 @@
   </div>
   <nav class="basis-full">
     <ul class="flex space-x-16">
-      <li><button (click)="onSelectedFeature('recipes')">Recipes</button></li>
-      <li>
-        <button (click)="onSelectedFeature('shopping-list')">
+      <li [ngClass]="{ active: active === PAGE_TITLE.RECIPES }">
+        <button (click)="onSelectedFeature(PAGE_TITLE.RECIPES)">Recipes</button>
+      </li>
+      <li [ngClass]="{ active: active === PAGE_TITLE.SHOPPING_LIST }">
+        <button (click)="onSelectedFeature(PAGE_TITLE.SHOPPING_LIST)">
           Shopping List
         </button>
       </li>
