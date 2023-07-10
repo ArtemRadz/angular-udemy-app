@@ -1,0 +1,13 @@
+li {
+  &.selected {
+    background-color: rgb(68 148 229 / 9%);
+    color: #4494e5;
+  }
+  &:not(.selected):hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  &.focused {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}

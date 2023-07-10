@@ -1,0 +1,16 @@
+<div class="relative">
+  <button
+    class="flex items-center justify-between h-10 p-2 w-full border border-solid rounded outline-none bg-white"
+    type="button"
+    aria-haspopup="listbox"
+    (click)="toggleDropdown()">
+    {{ value }}
+  </button>
+  <ul
+    class="dropdown-list w-max min-w-full h-fit py-2 rounded bg-white text-black/80 hidden absolute inset-0 z-10 m-0 max-h-[35rem] overflow-y-auto"
+    [attr.aria-expanded]="dropdownOpen"
+    [class.dropdown-open]="dropdownOpen"
+    role="listbox">
+    <ng-content></ng-content>
+  </ul>
+</div>
