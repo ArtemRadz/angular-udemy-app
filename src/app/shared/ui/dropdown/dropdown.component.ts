@@ -1,10 +1,12 @@
 import { NgIf } from '@angular/common';
 import {
   AfterContentInit,
-  ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
+  ElementRef,
   forwardRef,
+  HostListener,
   inject,
   QueryList,
 } from '@angular/core';
@@ -26,10 +28,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownComponent
   implements AfterContentInit, ControlValueAccessor
 {
+  private readonly elRef = inject(ElementRef);
+
+  private _onChange!: (_: unknown) => void;
+  private _onTouched!: () => void;
+  private _value!: unknown | undefined;
+  private _disabled = false;
+
   displayValue!: string | null;
   dropdownOpen = false;
 
@@ -38,35 +48,37 @@ export class DropdownComponent
 
   subs = new Subscription();
 
-  protected _onChange!: (_: any) => void;
-  protected _onTouched!: () => void;
-  protected _value!: any | undefined;
-  protected _disabled = false;
-
-  protected readonly cf = inject(ChangeDetectorRef);
+  @HostListener('document:click', ['$event'])
+  @HostListener('document:touchend', ['$event'])
+  outsideClick(event: Event) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.closeDropdown();
+    }
+  }
 
   get value() {
     return this._value;
   }
 
-  get disabled(): boolean {
+  get disabled() {
     return this._disabled;
   }
 
-  writeValue(obj: any | undefined): void {
+  writeValue(obj: unknown | undefined) {
+    this.unselectPrevious();
+    this.selectOption(obj);
     this._value = obj;
-    this.cf.markForCheck();
   }
 
-  registerOnChange(fn: (_: any) => void): void {
+  registerOnChange(fn: (_: unknown) => void) {
     this._onChange = fn;
   }
 
-  registerOnTouched(fn: () => void): void {
+  registerOnTouched(fn: () => void) {
     this._onTouched = fn;
   }
 
-  setDisabledState(disabled: boolean): void {
+  setDisabledState(disabled: boolean) {
     this._disabled = disabled;
   }
 
@@ -107,15 +119,20 @@ export class DropdownComponent
     this.dropdownOpen = false;
   }
 
-  select(value: any) {
+  select(value: unknown) {
     this._value = value;
     this._onChange(this._value);
     this.closeDropdown();
   }
 
-  private selectOption(value: any) {
+  private compareWith: (val1: unknown, val2: unknown) => boolean = (v1, v2) =>
+    v1 === v2;
+
+  private selectOption(value: unknown) {
     if (this.data && value !== undefined) {
-      const shouldSelect = this.data.find(c => value === c.value);
+      const shouldSelect = this.data.find(c =>
+        this.compareWith(c.value, value)
+      );
       if (shouldSelect) {
         shouldSelect.selected = true;
         this.displayValue = shouldSelect.innerText;
@@ -125,8 +142,9 @@ export class DropdownComponent
 
   private unselectPrevious() {
     this.displayValue = null;
-    this.data.forEach(comp => {
+    const comp = this.data?.find(c => this.compareWith(c.value, this.value));
+    if (comp) {
       comp.selected = false;
-    });
+    }
   }
 }

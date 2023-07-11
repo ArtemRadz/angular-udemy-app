@@ -1,13 +1,13 @@
 <div class="relative">
   <button
-    class="flex items-center justify-between h-10 p-2 w-full border border-solid rounded outline-none bg-white"
+    class="flex items-center justify-between px-2 py-1 w-full border border-solid border-[wheat] rounded"
     type="button"
     aria-haspopup="listbox"
     (click)="toggleDropdown()">
     {{ displayValue }}
   </button>
   <ul
-    class="dropdown-list w-max min-w-full h-fit py-2 rounded bg-white text-black/80 hidden absolute inset-0 z-10 m-0 max-h-[35rem] overflow-y-auto"
+    class="dropdown-list w-max min-w-full h-fit -top-1 rounded bg-[#444653] hidden absolute inset-0 m-0 max-h-[20rem] overflow-y-auto"
     [attr.aria-expanded]="dropdownOpen"
     [class.dropdown-open]="dropdownOpen"
     role="listbox">

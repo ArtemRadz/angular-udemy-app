@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgIf, NgStyle, NgClass, NgFor } from '@angular/common';
 
 import { HeaderComponent } from './features/header/header.component';
@@ -14,6 +14,11 @@ import { HighlightDirective } from './shared/directives/highlight.directive';
 import { UnlessDirective } from './shared/directives/unless.directive';
 import { DropdownComponent } from './shared/ui/dropdown/dropdown.component';
 import { DropdownOptionComponent } from './shared/ui/dropdown-option/dropdown-option.component';
+import { AccountListComponent } from './account-app/account-list/account-list.component';
+import { NewAccountComponent } from './account-app/new-account/new-account.component';
+import { Account, AccountStatus } from './account-app/state/account.model';
+import { AccountService } from './account-app/state/account.service';
+import { AccountItemComponent } from './account-app/account-list/account-item/account-item.component';
 
 @Component({
   standalone: true,
@@ -35,30 +40,52 @@ import { DropdownOptionComponent } from './shared/ui/dropdown-option/dropdown-op
     UnlessDirective,
     DropdownComponent,
     DropdownOptionComponent,
+    AccountListComponent,
+    AccountItemComponent,
+    NewAccountComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   // resources: Resource[] = [];
   // resourceType = ResourceType;
   // addedResources(resource: Resource) {
   //   this.resources.push(resource);
   // }
-
-  dropdownData = [
-    { value: 'en', name: 'English' },
-    { value: 'bg', name: 'Bulgarian' },
-    { value: 'ua', name: 'Ukrainian' },
-    { value: 'ro', name: 'Romanian' },
-  ];
-
-  dropdownSelected = this.dropdownData[1];
-
-  state = false;
-
-  PAGE_TITLE = PAGE_TITLE;
-
+  // dropdownData = [
+  //   { value: 'en', name: 'English' },
+  //   { value: 'bg', name: 'Bulgarian' },
+  //   { value: 'ua', name: 'Ukrainian' },
+  //   { value: 'ro', name: 'Romanian' },
+  // ];
+  // dropdownSelected = this.dropdownData[1];
+  // state = false;
+  // PAGE_TITLE = PAGE_TITLE;
   loadedFeature = PAGE_TITLE.RECIPES;
+  // selecteDropdown() {
+  //   this.dropdownSelected = this.dropdownData[2];
+  // }
+  // addDropdownOption() {
+  //   this.dropdownData.push({ value: 'fr', name: 'French' });
+  // }
+
+  accounts!: Account[];
+
+  constructor(private accountService: AccountService) {}
+
+  ngOnInit() {
+    this.accounts = this.accountService.getAccounts();
+  }
+
+  onAddedAccount(account: Account) {
+    this.accountService.addAccount(account);
+  }
+
+  onChangedStatus(account: Account, status: AccountStatus) {
+    if (account?.id) {
+      this.accountService.updateAccountStatus(account?.id, status);
+    }
+  }
 
   onNavigate(feature: PAGE_TITLE) {
     this.loadedFeature = feature;

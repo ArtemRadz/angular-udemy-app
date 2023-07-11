@@ -16,7 +16,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownOptionComponent {
-  @Input() value!: any;
+  @Input() value!: unknown;
   @Output() selectedStateChange = new EventEmitter();
 
   private _selected = false;

@@ -14,7 +14,7 @@ export class UnlessDirective {
   }
 
   constructor(
-    private templateRef: TemplateRef<any>,
+    private templateRef: TemplateRef<unknown>,
     private vcRef: ViewContainerRef
   ) {}
 }
