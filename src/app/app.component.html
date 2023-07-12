@@ -2,6 +2,10 @@
 
 <main class="bg-[#444653] flex-1">
   <div class="container mx-auto py-4 px-3 sm:px-0 space-x-6">
+    <app-recipes *ngIf="loadedFeature === PAGE_TITLE.RECIPES"></app-recipes>
+    <app-shopping-list
+      *ngIf="loadedFeature !== PAGE_TITLE.RECIPES"></app-shopping-list>
+
     <!-- <app-cockpit (createdResource)="addedResources($event)"></app-cockpit>
     <app-server-item *ngFor="let resource of resources" [resource]="resource">
       <p #contentChild>
@@ -15,10 +19,6 @@
         </ng-template>
       </p>
     </app-server-item> -->
-
-    <!-- <app-recipes *ngIf="loadedFeature === PAGE_TITLE.RECIPES"></app-recipes>
-    <app-shopping-list
-      *ngIf="loadedFeature !== PAGE_TITLE.RECIPES"></app-shopping-list> -->
 
     <!-- <button (click)="state = !state">Change</button>
     <div *appUnless="state">
@@ -43,7 +43,7 @@
         class="block"></app-account-item
     ></app-account-list> -->
 
-    <app-active-users [users]="activeUsers"></app-active-users>
-    <app-inactive-users [users]="inactiveUsers"></app-inactive-users>
+    <!-- <app-active-users [users]="activeUsers"></app-active-users>
+    <app-inactive-users [users]="inactiveUsers"></app-inactive-users> -->
   </div>
 </main>

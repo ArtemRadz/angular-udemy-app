@@ -2,7 +2,6 @@ import { FormsModule } from '@angular/forms';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -59,7 +58,7 @@ import { Subscription } from 'rxjs';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
   // resources: Resource[] = [];
   // resourceType = ResourceType;
   // addedResources(resource: Resource) {
@@ -73,7 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
   // ];
   // dropdownSelected = this.dropdownData[1];
   // state = false;
-  // PAGE_TITLE = PAGE_TITLE;
+  PAGE_TITLE = PAGE_TITLE;
   loadedFeature = PAGE_TITLE.RECIPES;
   // selecteDropdown() {
   //   this.dropdownSelected = this.dropdownData[2];
@@ -82,47 +81,47 @@ export class AppComponent implements OnInit, OnDestroy {
   //   this.dropdownData.push({ value: 'fr', name: 'French' });
   // }
 
-  accounts!: Account[];
+  // accounts!: Account[];
 
-  activeUsers!: User[];
-  inactiveUsers!: User[];
+  // activeUsers!: User[];
+  // inactiveUsers!: User[];
 
-  usersSubscription!: Subscription;
+  // usersSubscription!: Subscription;
 
-  constructor(
-    private accountService: AccountService,
-    private usersService: UsersService
-  ) {}
+  // constructor(
+  //   private accountService: AccountService,
+  //   private usersService: UsersService
+  // ) {}
 
-  ngOnInit() {
-    this.accounts = this.accountService.getAccounts();
-    this.getUsers();
+  // ngOnInit() {
+  //   this.accounts = this.accountService.getAccounts();
+  //   this.getUsers();
 
-    this.usersSubscription = this.usersService.userStatusChanged.subscribe(() =>
-      this.getUsers()
-    );
-  }
+  //   this.usersSubscription = this.usersService.userStatusChanged.subscribe(() =>
+  //     this.getUsers()
+  //   );
+  // }
 
-  ngOnDestroy() {
-    this.usersSubscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.usersSubscription.unsubscribe();
+  // }
 
-  onAddedAccount(account: Account) {
-    this.accountService.addAccount(account);
-  }
+  // onAddedAccount(account: Account) {
+  //   this.accountService.addAccount(account);
+  // }
 
-  onChangedStatus(account: Account, status: AccountStatus) {
-    if (account?.id) {
-      this.accountService.updateAccountStatus(account?.id, status);
-    }
-  }
+  // onChangedStatus(account: Account, status: AccountStatus) {
+  //   if (account?.id) {
+  //     this.accountService.updateAccountStatus(account?.id, status);
+  //   }
+  // }
 
   onNavigate(feature: PAGE_TITLE) {
     this.loadedFeature = feature;
   }
 
-  private getUsers() {
-    this.activeUsers = this.usersService.getActiveUsers();
-    this.inactiveUsers = this.usersService.getInactiveUsers();
-  }
+  // private getUsers() {
+  //   this.activeUsers = this.usersService.getActiveUsers();
+  //   this.inactiveUsers = this.usersService.getInactiveUsers();
+  // }
 }

@@ -1,14 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { Recipe } from '../state/recipe.model';
+import { RecipesService } from '../state/recipes.service';
 
 @Component({
   selector: 'app-recipe-detail',
-  standalone: true,
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
+  imports: [NgIf, AsyncPipe],
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeDetailComponent {
-  @Input() recipe!: Recipe;
+  recipeSelected = this.recipesService.recipeSelected;
+
+  constructor(private recipesService: RecipesService) {}
 }

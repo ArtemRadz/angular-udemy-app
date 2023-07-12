@@ -2,12 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Ingredient } from 'src/app/shared/ingredient.model';
+
+import { ShoppingListService } from '../state/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -20,14 +19,13 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 export class ShoppingEditComponent {
   @ViewChild('nameInput') nameInputRef!: ElementRef;
   @ViewChild('amountInput') amountInputRef!: ElementRef;
-  @Output() ingredientAdded = new EventEmitter<Ingredient>();
+
+  constructor(private shoppingListService: ShoppingListService) {}
 
   onAdd() {
-    this.ingredientAdded.emit(
-      new Ingredient(
-        this.nameInputRef.nativeElement.value,
-        this.amountInputRef.nativeElement.value
-      )
+    this.shoppingListService.addIngredient(
+      this.nameInputRef.nativeElement.value,
+      this.amountInputRef.nativeElement.value
     );
   }
 }

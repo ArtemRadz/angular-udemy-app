@@ -1,10 +1,4 @@
-<app-recipe-list
-  (selectedRecipe)="selectedRecipe = $event"
-  class="basis-full"></app-recipe-list>
-<app-recipe-detail
-  *ngIf="selectedRecipe; else infoText"
-  [recipe]="selectedRecipe"
-  class="basis-full"></app-recipe-detail>
-<ng-template #infoText>
-  <p>Please select a Recipe</p>
-</ng-template>
+<div class="flex flex-wrap gap-4">
+  <app-recipe-list class="basis-full"></app-recipe-list>
+  <app-recipe-detail class="basis-full"></app-recipe-detail>
+</div>

@@ -1,10 +1,18 @@
-<img [src]="recipe.imagePath" [alt]="recipe.name" />
-<h1>{{ recipe.name }}</h1>
-<select class="ud-select">
-  <option value="">Manage Recipe</option>
-  <option value="list">To Shopping List</option>
-  <option value="edit">Edit Recipe</option>
-  <option value="delete">Delete Recipe</option>
-</select>
-<p>{{ recipe.desc }}</p>
-<p>Ingredients</p>
+<div>
+  <ng-container *ngIf="recipeSelected | async as recipe; else infoText">
+    <img [src]="recipe.imagePath" [alt]="recipe.name" />
+    <h1>{{ recipe.name }}</h1>
+    <select class="ud-select">
+      <option value="">Manage Recipe</option>
+      <option value="list">To Shopping List</option>
+      <option value="edit">Edit Recipe</option>
+      <option value="delete">Delete Recipe</option>
+    </select>
+    <p>{{ recipe.desc }}</p>
+    <p>Ingredients</p>
+  </ng-container>
+
+  <ng-template #infoText>
+    <p>Please select a Recipe</p>
+  </ng-template>
+</div>
