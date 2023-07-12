@@ -34,13 +34,16 @@
     <button (click)="selecteDropdown()">Select</button>
     <button (click)="addDropdownOption()">addDropdownOption</button> -->
 
-    <app-new-account (addedAccount)="onAddedAccount($event)"></app-new-account>
+    <!-- <app-new-account (addedAccount)="onAddedAccount($event)"></app-new-account>
     <app-account-list>
       <app-account-item
         *ngFor="let ac of accounts"
         [account]="ac"
         (changedStatus)="onChangedStatus(ac, $event)"
         class="block"></app-account-item
-    ></app-account-list>
+    ></app-account-list> -->
+
+    <app-active-users [users]="activeUsers"></app-active-users>
+    <app-inactive-users [users]="inactiveUsers"></app-inactive-users>
   </div>
 </main>

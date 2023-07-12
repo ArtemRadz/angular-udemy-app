@@ -1,5 +1,11 @@
 import { FormsModule } from '@angular/forms';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { NgIf, NgStyle, NgClass, NgFor } from '@angular/common';
 
 import { HeaderComponent } from './features/header/header.component';
@@ -19,6 +25,11 @@ import { NewAccountComponent } from './account-app/new-account/new-account.compo
 import { Account, AccountStatus } from './account-app/state/account.model';
 import { AccountService } from './account-app/state/account.service';
 import { AccountItemComponent } from './account-app/account-list/account-item/account-item.component';
+import { ActiveUsersComponent } from './users-app/active-users/active-users.component';
+import { InactiveUsersComponent } from './users-app/inactive-users/inactive-users.component';
+import { UsersService } from './users-app/state/users.service';
+import { User } from './users-app/state/users.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -43,10 +54,12 @@ import { AccountItemComponent } from './account-app/account-list/account-item/ac
     AccountListComponent,
     AccountItemComponent,
     NewAccountComponent,
+    ActiveUsersComponent,
+    InactiveUsersComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   // resources: Resource[] = [];
   // resourceType = ResourceType;
   // addedResources(resource: Resource) {
@@ -71,10 +84,27 @@ export class AppComponent implements OnInit {
 
   accounts!: Account[];
 
-  constructor(private accountService: AccountService) {}
+  activeUsers!: User[];
+  inactiveUsers!: User[];
+
+  usersSubscription!: Subscription;
+
+  constructor(
+    private accountService: AccountService,
+    private usersService: UsersService
+  ) {}
 
   ngOnInit() {
     this.accounts = this.accountService.getAccounts();
+    this.getUsers();
+
+    this.usersSubscription = this.usersService.userStatusChanged.subscribe(() =>
+      this.getUsers()
+    );
+  }
+
+  ngOnDestroy() {
+    this.usersSubscription.unsubscribe();
   }
 
   onAddedAccount(account: Account) {
@@ -89,5 +119,10 @@ export class AppComponent implements OnInit {
 
   onNavigate(feature: PAGE_TITLE) {
     this.loadedFeature = feature;
+  }
+
+  private getUsers() {
+    this.activeUsers = this.usersService.getActiveUsers();
+    this.inactiveUsers = this.usersService.getInactiveUsers();
   }
 }

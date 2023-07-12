@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Account, AccountStatus } from './account.model';
+import { LoggingService } from 'src/app/shared/services/logging-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,8 @@ export class AccountService {
     { id: ++this.id, name: 'Hidden Account', status: AccountStatus.hidden },
   ];
 
+  constructor(private logginsService: LoggingService) {}
+
   getAccounts() {
     return this.accounts;
   }
@@ -22,7 +25,9 @@ export class AccountService {
     account.id = ++this.id;
     this.accounts.push(account);
 
-    this.logStatusChange(account.status);
+    this.logginsService.log(
+      'A server status changed, new status: ' + account.status
+    );
   }
 
   updateAccountStatus(id: number, status: AccountStatus) {
@@ -30,11 +35,7 @@ export class AccountService {
 
     if (account?.status) {
       account.status = status;
-      this.logStatusChange(status);
+      this.logginsService.log('A server status changed, new status: ' + status);
     }
-  }
-
-  logStatusChange(status: AccountStatus) {
-    console.log('A server status changed, new status: ' + status);
   }
 }
