@@ -17,8 +17,8 @@ import { ServerItemComponent } from './resource-app/server-item/server-item.comp
 import { PAGE_TITLE } from './features/constants';
 import { HighlightDirective } from './shared/directives/highlight.directive';
 import { UnlessDirective } from './shared/directives/unless.directive';
-import { DropdownComponent } from './shared/ui/dropdown/dropdown.component';
-import { DropdownOptionComponent } from './shared/ui/dropdown-option/dropdown-option.component';
+import { SelectComponent } from './shared/ui/select/select.component';
+import { SelectOptionComponent } from './shared/ui/select/select-option/select-option.component';
 import { AccountListComponent } from './account-app/account-list/account-list.component';
 import { NewAccountComponent } from './account-app/new-account/new-account.component';
 import { Account, AccountStatus } from './account-app/state/account.model';
@@ -48,8 +48,8 @@ import { Subscription } from 'rxjs';
     ServerItemComponent,
     HighlightDirective,
     UnlessDirective,
-    DropdownComponent,
-    DropdownOptionComponent,
+    SelectComponent,
+    SelectOptionComponent,
     AccountListComponent,
     AccountItemComponent,
     NewAccountComponent,
@@ -64,21 +64,21 @@ export class AppComponent {
   // addedResources(resource: Resource) {
   //   this.resources.push(resource);
   // }
-  // dropdownData = [
+  // selectData = [
   //   { value: 'en', name: 'English' },
   //   { value: 'bg', name: 'Bulgarian' },
   //   { value: 'ua', name: 'Ukrainian' },
   //   { value: 'ro', name: 'Romanian' },
   // ];
-  // dropdownSelected = this.dropdownData[1];
+  // selectSelected = this.selectData[1];
   // state = false;
   PAGE_TITLE = PAGE_TITLE;
   loadedFeature = PAGE_TITLE.RECIPES;
-  // selecteDropdown() {
-  //   this.dropdownSelected = this.dropdownData[2];
+  // select() {
+  //   this.selectSelected = this.selectData[2];
   // }
-  // addDropdownOption() {
-  //   this.dropdownData.push({ value: 'fr', name: 'French' });
+  // addSelectOption() {
+  //   this.selectData.push({ value: 'fr', name: 'French' });
   // }
 
   // accounts!: Account[];

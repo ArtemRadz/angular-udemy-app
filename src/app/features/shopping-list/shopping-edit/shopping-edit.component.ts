@@ -7,6 +7,7 @@ import {
 import { FormsModule } from '@angular/forms';
 
 import { ShoppingListService } from '../state/shopping-list.service';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -24,8 +25,10 @@ export class ShoppingEditComponent {
 
   onAdd() {
     this.shoppingListService.addIngredient(
-      this.nameInputRef.nativeElement.value,
-      this.amountInputRef.nativeElement.value
+      new Ingredient(
+        this.nameInputRef.nativeElement.value,
+        Number(this.amountInputRef.nativeElement.value)
+      )
     );
   }
 }

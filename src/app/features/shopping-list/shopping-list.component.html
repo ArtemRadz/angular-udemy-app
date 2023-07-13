@@ -4,7 +4,12 @@
     <li
       *ngFor="let ingredient of ingredients | async"
       class="cursor-pointer text-[wheat] p-2 border border-solid border-[#34353f] rounded-lg">
-      {{ ingredient.name }} ({{ ingredient.amount }})
+      <p>
+        <span class="inline-block first-letter:uppercase">{{
+          ingredient.name
+        }}</span>
+        <span>({{ ingredient.amount }})</span>
+      </p>
     </li>
   </ul>
 </div>

@@ -1,15 +1,16 @@
-<div class="relative">
+<div (clickedOutside)="closeDropdown()" appClickOutside class="relative">
   <button
     class="flex items-center justify-between px-2 py-1 w-full border border-solid border-[wheat] rounded"
     type="button"
     aria-haspopup="listbox"
     (click)="toggleDropdown()">
-    {{ displayValue }}
+    <p>{{ title }}</p>
+    <span class="arrow" [ngClass]="{ 'arrow-open': isDropdownOpen }"></span>
   </button>
   <ul
-    class="dropdown-list w-max min-w-full h-fit -top-1 rounded bg-[#444653] hidden absolute inset-0 m-0 max-h-[20rem] overflow-y-auto"
-    [attr.aria-expanded]="dropdownOpen"
-    [class.dropdown-open]="dropdownOpen"
+    class="dropdown-list w-max min-w-full h-fit top-full rounded bg-[#444653] hidden absolute inset-0 m-0 max-h-[20rem] overflow-y-auto"
+    [attr.aria-expanded]="isDropdownOpen"
+    [class.dropdown-open]="isDropdownOpen"
     role="listbox">
     <ng-content></ng-content>
   </ul>

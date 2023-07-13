@@ -9,13 +9,13 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-dropdown-option',
+  selector: 'app-select-option',
   standalone: true,
-  templateUrl: './dropdown-option.component.html',
-  styleUrls: ['./dropdown-option.component.scss'],
+  templateUrl: './select-option.component.html',
+  styleUrls: ['./select-option.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropdownOptionComponent {
+export class SelectOptionComponent {
   @Input() value!: unknown;
   @Output() selectedStateChange = new EventEmitter();
 

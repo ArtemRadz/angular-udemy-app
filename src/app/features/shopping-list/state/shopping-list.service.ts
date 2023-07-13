@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { Ingredient } from 'src/app/shared/ingredient.model';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +23,33 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
-  addIngredient(name: string, amount: number) {
-    this.ingredients.push(new Ingredient(name, amount));
+  addIngredient(ingredient: Ingredient) {
+    this.addIngredientOrIncreaseAmountOfExisting(ingredient);
+
     this.ingredientChanged.emit(this.ingredients.slice());
+  }
+
+  addIngredients(newIngredients: Ingredient[]) {
+    newIngredients.forEach(ingredient => {
+      this.addIngredientOrIncreaseAmountOfExisting(ingredient);
+    });
+
+    this.ingredientChanged.emit(this.ingredients.slice());
+  }
+
+  private addIngredientOrIncreaseAmountOfExisting(ingredient: Ingredient) {
+    const existingIngredient = this.getIngredientIfExists(ingredient);
+
+    if (existingIngredient) {
+      existingIngredient.amount += ingredient.amount;
+    } else {
+      this.ingredients.push(ingredient);
+    }
+  }
+
+  private getIngredientIfExists(ingredient: Ingredient) {
+    return this.ingredients.find(
+      i => i.name.toLowerCase() === ingredient.name.toLowerCase()
+    );
   }
 }

@@ -1,0 +1,17 @@
+<div (clickedOutside)="closeSelect()" appClickOutside class="relative">
+  <button
+    class="flex items-center justify-between px-2 py-1 w-full border border-solid border-[wheat] rounded"
+    type="button"
+    aria-haspopup="listbox"
+    (click)="toggleSelect()">
+    <p>{{ displayValue }}</p>
+    <span class="arrow" [ngClass]="{ 'arrow-open': selectOpen }"></span>
+  </button>
+  <ul
+    class="select-list w-max min-w-full h-fit -top-1 rounded bg-[#444653] hidden absolute inset-0 m-0 max-h-[20rem] overflow-y-auto"
+    [attr.aria-expanded]="selectOpen"
+    [class.select-open]="selectOpen"
+    role="listbox">
+    <ng-content></ng-content>
+  </ul>
+</div>
