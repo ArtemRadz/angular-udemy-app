@@ -14,7 +14,6 @@ import { ShoppingListComponent } from './features/shopping-list/shopping-list.co
 // import { Resource, ResourceType } from './resource-app/state/server.model';
 import { CockpitComponent } from './resource-app/cockpit/cockpit.component';
 import { ServerItemComponent } from './resource-app/server-item/server-item.component';
-import { PAGE_TITLE } from './features/constants';
 import { HighlightDirective } from './shared/directives/highlight.directive';
 import { UnlessDirective } from './shared/directives/unless.directive';
 import { SelectComponent } from './shared/ui/select/select.component';
@@ -29,6 +28,10 @@ import { InactiveUsersComponent } from './users-app/inactive-users/inactive-user
 import { UsersService } from './users-app/state/users.service';
 import { User } from './users-app/state/users.model';
 import { Subscription } from 'rxjs';
+import { HomeComponent } from './router-app/home/home.component';
+import { UsersComponent } from './router-app/users/users.component';
+import { ServersComponent } from './router-app/servers/servers.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -55,6 +58,7 @@ import { Subscription } from 'rxjs';
     NewAccountComponent,
     ActiveUsersComponent,
     InactiveUsersComponent,
+    RouterOutlet,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -72,54 +76,38 @@ export class AppComponent {
   // ];
   // selectSelected = this.selectData[1];
   // state = false;
-  PAGE_TITLE = PAGE_TITLE;
-  loadedFeature = PAGE_TITLE.RECIPES;
   // select() {
   //   this.selectSelected = this.selectData[2];
   // }
   // addSelectOption() {
   //   this.selectData.push({ value: 'fr', name: 'French' });
   // }
-
   // accounts!: Account[];
-
   // activeUsers!: User[];
   // inactiveUsers!: User[];
-
   // usersSubscription!: Subscription;
-
   // constructor(
   //   private accountService: AccountService,
   //   private usersService: UsersService
   // ) {}
-
   // ngOnInit() {
   //   this.accounts = this.accountService.getAccounts();
   //   this.getUsers();
-
   //   this.usersSubscription = this.usersService.userStatusChanged.subscribe(() =>
   //     this.getUsers()
   //   );
   // }
-
   // ngOnDestroy() {
   //   this.usersSubscription.unsubscribe();
   // }
-
   // onAddedAccount(account: Account) {
   //   this.accountService.addAccount(account);
   // }
-
   // onChangedStatus(account: Account, status: AccountStatus) {
   //   if (account?.id) {
   //     this.accountService.updateAccountStatus(account?.id, status);
   //   }
   // }
-
-  onNavigate(feature: PAGE_TITLE) {
-    this.loadedFeature = feature;
-  }
-
   // private getUsers() {
   //   this.activeUsers = this.usersService.getActiveUsers();
   //   this.inactiveUsers = this.usersService.getInactiveUsers();

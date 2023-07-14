@@ -5,13 +5,14 @@
   </div>
   <nav class="basis-full">
     <ul class="flex space-x-16">
-      <li [ngClass]="{ active: active === PAGE_TITLE.RECIPES }">
-        <button (click)="onSelectedFeature(PAGE_TITLE.RECIPES)">Recipes</button>
+      <li routerLinkActive="active" role="presentation">
+        <a routerLink="router-app/home">Home</a>
       </li>
-      <li [ngClass]="{ active: active === PAGE_TITLE.SHOPPING_LIST }">
-        <button (click)="onSelectedFeature(PAGE_TITLE.SHOPPING_LIST)">
-          Shopping List
-        </button>
+      <li routerLinkActive="active" role="presentation">
+        <a routerLink="router-app/servers">Servers</a>
+      </li>
+      <li routerLinkActive="active" role="presentation">
+        <a routerLink="router-app/users">Users</a>
       </li>
     </ul>
   </nav>

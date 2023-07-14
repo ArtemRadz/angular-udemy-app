@@ -7,7 +7,7 @@ import { UsersService } from '../state/users.service';
 @Component({
   selector: 'app-inactive-users',
   templateUrl: './inactive-users.component.html',
-  styleUrls: ['./inactive-users.component.css'],
+  styleUrls: ['./inactive-users.component.scss'],
   imports: [NgFor],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -7,7 +7,7 @@ import { UsersService } from '../state/users.service';
 @Component({
   selector: 'app-active-users',
   templateUrl: './active-users.component.html',
-  styleUrls: ['./active-users.component.css'],
+  styleUrls: ['./active-users.component.scss'],
   imports: [NgFor],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

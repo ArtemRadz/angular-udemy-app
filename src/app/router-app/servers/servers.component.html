@@ -1,0 +1,12 @@
+<ul>
+  <li>
+    <p *ngFor="let server of servers">
+      {{ server.name }}
+    </p>
+  </li>
+</ul>
+<div>
+  <app-edit-server></app-edit-server>
+  <hr />
+  <app-server></app-server>
+</div>
