@@ -1,10 +1,28 @@
 import { Routes } from '@angular/router';
 
-import { ServersComponent } from './servers.component';
-
 export const serversRoutes: Routes = [
   {
     path: '',
-    component: ServersComponent,
+    children: [
+      {
+        path: 'list',
+        title: 'Servers List',
+        loadComponent: () =>
+          import('./servers.component').then(a => a.ServersComponent),
+      },
+      {
+        path: ':id/edit',
+        title: 'Edit Server',
+        loadComponent: () =>
+          import('./edit-server/edit-server.component').then(
+            a => a.EditServerComponent
+          ),
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'list',
+      },
+    ],
   },
 ];

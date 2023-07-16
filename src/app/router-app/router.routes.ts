@@ -5,8 +5,8 @@ export const routerPageRoutes: Routes = [
     path: '',
     children: [
       {
-        path: 'home',
-        title: 'Home',
+        path: '',
+        title: 'Router App',
         loadComponent: () =>
           import('./home/home.component').then(a => a.HomeComponent),
       },
@@ -25,7 +25,7 @@ export const routerPageRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home',
+        redirectTo: '',
       },
     ],
   },

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ServersService } from '../state/servers.service';
 import { SelectComponent } from 'src/app/shared/ui/select/select.component';
@@ -11,7 +12,7 @@ import { Server, ServerStatus } from '../state/servers.model';
   selector: 'app-edit-server',
   templateUrl: './edit-server.component.html',
   styleUrls: ['./edit-server.component.scss'],
-  imports: [NgFor, FormsModule, SelectComponent, SelectOptionComponent],
+  imports: [NgIf, NgFor, FormsModule, SelectComponent, SelectOptionComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,15 +23,23 @@ export class EditServerComponent implements OnInit {
 
   serverStatusData = [ServerStatus.Online, ServerStatus.Offline];
 
-  constructor(private serversService: ServersService) {}
+  constructor(
+    private serversService: ServersService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    const server = this.serversService.getServer(1);
+    const server = this.serversService.getServer(
+      this.activatedRoute.snapshot.paramMap.get('id')
+    );
 
     if (server) {
       this.server = server;
       this.serverName = this.server.name;
       this.serverStatus = this.server.status;
+    } else {
+      this.router.navigate(['/error']);
     }
   }
 
@@ -39,5 +48,6 @@ export class EditServerComponent implements OnInit {
       name: this.serverName,
       status: this.serverStatus,
     });
+    this.router.navigate(['/router-app/servers']);
   }
 }

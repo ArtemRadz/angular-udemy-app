@@ -108,7 +108,7 @@ export class SelectComponent implements AfterContentInit, ControlValueAccessor {
   }
 
   unsubscribeSelectedEvents() {
-    this.subs.unsubscribe();
+    this.subs?.unsubscribe();
   }
 
   toggleSelect() {

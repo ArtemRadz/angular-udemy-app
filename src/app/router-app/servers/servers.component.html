@@ -1,12 +1,7 @@
 <ul>
-  <li>
-    <p *ngFor="let server of servers">
-      {{ server.name }}
-    </p>
+  <li *ngFor="let server of servers">
+    <a [routerLink]="['/router-app/servers', server.id, 'edit']">
+      <app-server [server]="server"></app-server>
+    </a>
   </li>
 </ul>
-<div>
-  <app-edit-server></app-edit-server>
-  <hr />
-  <app-server></app-server>
-</div>

@@ -5,8 +5,11 @@
   </div>
   <nav class="basis-full">
     <ul class="flex space-x-16">
-      <li routerLinkActive="active" role="presentation">
-        <a routerLink="router-app/home">Home</a>
+      <li
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        role="presentation">
+        <a routerLink="router-app/">Home</a>
       </li>
       <li routerLinkActive="active" role="presentation">
         <a routerLink="router-app/servers">Servers</a>

@@ -28,8 +28,14 @@ export class ServersService {
     return this.servers;
   }
 
-  getServer(id: number) {
-    return this.servers.find(s => s.id === id);
+  getServer(id: unknown) {
+    const numberID = Number(id);
+
+    if (isNaN(numberID)) {
+      return null;
+    }
+
+    return this.servers.find(s => s.id === numberID);
   }
 
   updateServer(id: number, serverInfo: { name: string; status: string }) {

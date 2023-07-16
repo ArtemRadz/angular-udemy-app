@@ -1,31 +1,50 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { NgIf } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 
 import { User } from '../state/users.model';
 import { UsersService } from '../state/users.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  imports: [NgIf],
+  imports: [RouterLink, NgIf],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   user!: User | undefined | null;
+  activatedRouteSubscription!: Subscription;
 
   constructor(
     private usersService: UsersService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
-    const user = this.usersService.getUser(
-      this.route.snapshot.paramMap.get('id')
-    );
+    this.getUser(this.activatedRoute.snapshot.paramMap.get('id'));
+
+    // this.activatedRouteSubscription = this.activatedRoute.paramMap.subscribe(
+    //   (paramMap: ParamMap) => {
+    //     this.getUser(paramMap.get('id'));
+    //   }
+    // );
+  }
+
+  ngOnDestroy() {
+    this.activatedRouteSubscription?.unsubscribe();
+  }
+
+  private getUser(id: unknown) {
+    const user = this.usersService.getUser(id);
 
     if (user) {
       this.user = user;

@@ -40,7 +40,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subs.unsubscribe();
+    this.subs?.unsubscribe();
   }
 
   closeDropdown() {
