@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -26,17 +27,16 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private usersService: UsersService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private readonly cf: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.getUser(this.activatedRoute.snapshot.paramMap.get('id'));
-
-    // this.activatedRouteSubscription = this.activatedRoute.paramMap.subscribe(
-    //   (paramMap: ParamMap) => {
-    //     this.getUser(paramMap.get('id'));
-    //   }
-    // );
+    this.activatedRouteSubscription = this.activatedRoute.paramMap.subscribe(
+      (paramMap: ParamMap) => {
+        this.getUser(paramMap.get('id'));
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -48,6 +48,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
     if (user) {
       this.user = user;
+      this.cf.markForCheck();
     } else {
       this.router.navigate(['/error']);
     }

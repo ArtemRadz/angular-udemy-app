@@ -16,7 +16,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: '**',
-    pathMatch: 'full',
     redirectTo: 'router-app',
   },
 ];

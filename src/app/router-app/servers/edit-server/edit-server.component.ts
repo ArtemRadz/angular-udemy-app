@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { ServersService } from '../state/servers.service';
 import { SelectComponent } from 'src/app/shared/ui/select/select.component';
@@ -20,6 +20,7 @@ export class EditServerComponent implements OnInit {
   server!: Server;
   serverName = '';
   serverStatus = '';
+  allowEdit = false;
 
   serverStatusData = [ServerStatus.Online, ServerStatus.Offline];
 
@@ -30,6 +31,10 @@ export class EditServerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.activatedRoute.queryParamMap.subscribe((paramMap: ParamMap) => {
+      this.allowEdit = paramMap.get('allowEdit') === '1';
+    });
+
     const server = this.serversService.getServer(
       this.activatedRoute.snapshot.paramMap.get('id')
     );

@@ -3,12 +3,14 @@ import { Routes } from '@angular/router';
 export const serversRoutes: Routes = [
   {
     path: '',
+    title: 'Servers List',
+    loadComponent: () =>
+      import('./servers.component').then(a => a.ServersComponent),
     children: [
       {
-        path: 'list',
-        title: 'Servers List',
+        path: ':id',
         loadComponent: () =>
-          import('./servers.component').then(a => a.ServersComponent),
+          import('./server/server.component').then(a => a.ServerComponent),
       },
       {
         path: ':id/edit',
@@ -17,11 +19,6 @@ export const serversRoutes: Routes = [
           import('./edit-server/edit-server.component').then(
             a => a.EditServerComponent
           ),
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'list',
       },
     ],
   },

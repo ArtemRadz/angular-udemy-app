@@ -1,4 +1,11 @@
 <ng-container *ngIf="server">
   <h5>{{ server.name }}</h5>
   <p>Server status is {{ server.status }}</p>
+  <button
+    class="ud-btn"
+    type="button"
+    [routerLink]="['edit']"
+    [queryParamsHandling]="'preserve'">
+    Edit Server
+  </button>
 </ng-container>

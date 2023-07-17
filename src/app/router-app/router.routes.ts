@@ -22,11 +22,6 @@ export const routerPageRoutes: Routes = [
         loadChildren: () =>
           import('./users/users.routes').then(a => a.usersRoutes),
       },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '',
-      },
     ],
   },
 ];
