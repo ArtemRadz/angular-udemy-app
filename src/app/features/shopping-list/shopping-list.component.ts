@@ -15,7 +15,7 @@ import { ShoppingListService } from './state/shopping-list.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShoppingListComponent {
-  ingredients = this.shoppingListService.ingredientChanged.pipe(
+  ingredients$ = this.shoppingListService.ingredientChanged.pipe(
     startWith(this.shoppingListService.getIngredients())
   );
 

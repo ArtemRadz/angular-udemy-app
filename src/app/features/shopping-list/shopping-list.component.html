@@ -2,7 +2,7 @@
   <app-shopping-edit></app-shopping-edit>
   <ul class="space-y-2">
     <li
-      *ngFor="let ingredient of ingredients | async"
+      *ngFor="let ingredient of ingredients$ | async"
       class="cursor-pointer text-[wheat] p-2 border border-solid border-[#34353f] rounded-lg">
       <p>
         <span class="inline-block first-letter:uppercase">{{

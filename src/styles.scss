@@ -3,14 +3,6 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-  .ud-select {
-    @apply p-2 pr-0;
-    &,
-    option {
-      @apply bg-[#202123] text-white;
-    }
-  }
-
   .ud-input {
     @apply bg-transparent px-2 py-1 border border-solid border-[wheat] rounded;
   }

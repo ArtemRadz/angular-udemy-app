@@ -19,8 +19,8 @@
       </li>
     </ul>
   </nav>
-  <select class="ud-select">
-    <option value="save">Save Data</option>
-    <option value="fetch">Fetch Data</option>
-  </select>
+  <div class="flex space-x-5">
+    <button (click)="logout()" class="ud-btn">Logout</button>
+    <button (click)="login()" class="ud-btn">Login</button>
+  </div>
 </header>

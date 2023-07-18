@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Account, AccountStatus } from './account.model';
-import { LoggingService } from 'src/app/shared/services/logging-service.service';
+import { LoggingService } from 'src/app/shared/services/logging.service';
 
 @Injectable({
   providedIn: 'root',
