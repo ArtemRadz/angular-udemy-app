@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-error-page',
@@ -7,4 +8,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ErrorPageComponent {}
+export class ErrorPageComponent implements OnInit {
+  errorMessage!: string;
+
+  constructor(private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.errorMessage = this.activatedRoute.snapshot.data['message'];
+  }
+}

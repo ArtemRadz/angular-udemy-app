@@ -21,6 +21,7 @@ export class EditServerComponent implements OnInit {
   serverName = '';
   serverStatus = '';
   allowEdit = false;
+  changesSaved = false;
 
   serverStatusData = [ServerStatus.Online, ServerStatus.Offline];
 
@@ -53,6 +54,25 @@ export class EditServerComponent implements OnInit {
       name: this.serverName,
       status: this.serverStatus,
     });
+    this.changesSaved = true;
     this.router.navigate(['/router-app/servers']);
+  }
+
+  canDeactivate() {
+    if (!this.allowEdit) {
+      return true;
+    }
+
+    if (
+      (this.server.name !== this.serverName ||
+        this.server.status !== this.serverStatus) &&
+      !this.changesSaved
+    ) {
+      return confirm('Do you want to discard the changes?');
+    } else {
+      return true;
+    }
+
+    return true;
   }
 }

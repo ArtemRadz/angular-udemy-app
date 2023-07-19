@@ -9,6 +9,7 @@ export const appRoutes: Route[] = [
   {
     path: 'error',
     title: 'Error Page',
+    data: { message: 'Page not found' },
     loadComponent: () =>
       import('./shared/components/error-page/error-page.component').then(
         a => a.ErrorPageComponent
