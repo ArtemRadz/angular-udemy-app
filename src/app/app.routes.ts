@@ -2,9 +2,19 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
+    path: '',
+    redirectTo: 'recipe-app',
+    pathMatch: 'full',
+  },
+  {
     path: 'router-app',
     loadChildren: () =>
       import('./router-app/router.routes').then(p => p.routerPageRoutes),
+  },
+  {
+    path: 'recipe-app',
+    loadChildren: () =>
+      import('./features/recipe.routes').then(p => p.recipePageRoutes),
   },
   {
     path: 'error',
@@ -17,6 +27,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: '**',
-    redirectTo: 'router-app',
+    redirectTo: 'error',
   },
 ];
