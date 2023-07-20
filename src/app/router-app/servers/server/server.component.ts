@@ -6,11 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { ServersService } from '../state/servers.service';
 import { Server } from '../state/servers.model';
 
 @Component({
@@ -26,16 +25,15 @@ export class ServerComponent implements OnInit, OnDestroy {
   activatedRouteSubscription!: Subscription;
 
   constructor(
-    private readonly serversService: ServersService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly cf: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.activatedRouteSubscription = this.activatedRoute.paramMap.subscribe(
-      (paramMap: ParamMap) => {
-        const server = this.serversService.getServer(paramMap.get('id'));
+    this.activatedRouteSubscription = this.activatedRoute.data.subscribe(
+      (data: Data) => {
+        const server = data['server'];
 
         if (server) {
           this.server = server;

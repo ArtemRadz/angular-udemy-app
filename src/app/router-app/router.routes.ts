@@ -13,7 +13,6 @@ export const routerPageRoutes: Routes = [
           import('./home/home.component').then(a => a.HomeComponent),
       },
       {
-        canActivate: [authGuard],
         path: 'servers',
         title: 'Servers',
         loadChildren: () =>
