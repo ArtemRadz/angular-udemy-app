@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { Recipe } from '../../state/recipe.model';
 
@@ -7,6 +8,7 @@ import { Recipe } from '../../state/recipe.model';
   standalone: true,
   templateUrl: './recipe-item.component.html',
   styleUrls: ['./recipe-item.component.scss'],
+  imports: [RouterLinkActive, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeItemComponent {

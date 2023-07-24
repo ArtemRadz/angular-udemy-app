@@ -1,30 +1,24 @@
 <div>
-  <ng-container *ngIf="recipeSelected | async as recipe; else infoText">
-    <img [src]="recipe.imagePath" [alt]="recipe.name" />
-    <h1>{{ recipe.name }}</h1>
-    <app-dropdown class="max-w-xs block" [title]="'Manage Recipe'">
-      <app-dropdown-item (itemClicked)="onShoppingList(recipe.ingredients)"
-        >To Shopping List</app-dropdown-item
-      >
-      <app-dropdown-item>Edit Recipe</app-dropdown-item>
-      <app-dropdown-item>Delete Recipe</app-dropdown-item>
-    </app-dropdown>
-    <p>{{ recipe.desc }}</p>
-    <ul class="space-y-2">
-      <li
-        *ngFor="let ingredient of recipe.ingredients"
-        class="cursor-pointer text-[wheat] p-2 border border-solid border-[#34353f] rounded-lg">
-        <p>
-          <span class="inline-block first-letter:uppercase">{{
-            ingredient.name
-          }}</span>
-          <span>({{ ingredient.amount }})</span>
-        </p>
-      </li>
-    </ul>
-  </ng-container>
-
-  <ng-template #infoText>
-    <p>Please select a Recipe</p>
-  </ng-template>
+  <img [src]="recipe.imagePath" [alt]="recipe.name" />
+  <h1>{{ recipe.name }}</h1>
+  <app-dropdown class="max-w-xs block" [title]="'Manage Recipe'">
+    <app-dropdown-item (itemClicked)="onShoppingList(recipe.ingredients)"
+      >To Shopping List</app-dropdown-item
+    >
+    <app-dropdown-item>Edit Recipe</app-dropdown-item>
+    <app-dropdown-item>Delete Recipe</app-dropdown-item>
+  </app-dropdown>
+  <p>{{ recipe.desc }}</p>
+  <ul class="space-y-2">
+    <li
+      *ngFor="let ingredient of recipe.ingredients"
+      class="cursor-pointer text-[wheat] p-2 border border-solid border-[#34353f] rounded-lg">
+      <p>
+        <span class="inline-block first-letter:uppercase">{{
+          ingredient.name
+        }}</span>
+        <span>({{ ingredient.amount }})</span>
+      </p>
+    </li>
+  </ul>
 </div>

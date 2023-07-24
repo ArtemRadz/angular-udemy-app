@@ -1,11 +1,20 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 
-import { RecipesService } from '../state/recipes.service';
+import { Subscription } from 'rxjs';
+
 import { ShoppingListService } from '../../shopping-list/state/shopping-list.service';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { DropdownComponent } from 'src/app/shared/ui/dropdown/dropdown.component';
 import { DropdownItemComponent } from 'src/app/shared/ui/dropdown/dropdown-item/dropdown-item.component';
+import { Recipe } from '../state/recipe.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -15,13 +24,35 @@ import { DropdownItemComponent } from 'src/app/shared/ui/dropdown/dropdown-item/
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipeDetailComponent {
-  recipeSelected = this.recipesService.recipeSelected;
+export class RecipeDetailComponent implements OnInit, OnDestroy {
+  recipe!: Recipe;
+  activatedRouteSubscription!: Subscription;
 
   constructor(
-    private recipesService: RecipesService,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private cf: ChangeDetectorRef
   ) {}
+
+  ngOnInit() {
+    this.activatedRouteSubscription = this.activatedRoute.data.subscribe(
+      (data: Data) => {
+        const recipe = data['recipe'];
+
+        if (recipe) {
+          this.recipe = recipe;
+          this.cf.markForCheck();
+        } else {
+          this.router.navigate(['/error']);
+        }
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.activatedRouteSubscription.unsubscribe();
+  }
 
   onShoppingList(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);

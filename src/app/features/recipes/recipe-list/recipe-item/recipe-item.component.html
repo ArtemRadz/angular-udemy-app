@@ -1,4 +1,7 @@
-<button class="flex justify-between items-center w-full">
+<a
+  [routerLink]="[recipe.id]"
+  routerLinkActive="active"
+  class="flex justify-between items-center w-full p-5 border border-solid border-transparent">
   <div class="basis-2/3 text-center mt-4 text-white">
     <p class="text-xl">{{ recipe.name }}</p>
     <p class="italic">{{ recipe.desc }}</p>
@@ -9,4 +12,4 @@
       [alt]="recipe.name"
       class="w-auto h-full max-w-none -ml-[25px]" />
   </div>
-</button>
+</a>
