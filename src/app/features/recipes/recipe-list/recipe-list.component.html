@@ -1,5 +1,5 @@
 <div class="space-y-12">
-  <button class="ud-btn">New Recipe</button>
+  <button class="ud-btn" (click)="onNewRecipe()">New Recipe</button>
   <app-recipe-item
     *ngFor="let recipe of recipes"
     [recipe]="recipe"></app-recipe-item>

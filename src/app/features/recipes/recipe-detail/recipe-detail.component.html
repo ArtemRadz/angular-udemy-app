@@ -5,7 +5,7 @@
     <app-dropdown-item (itemClicked)="onShoppingList(recipe.ingredients)"
       >To Shopping List</app-dropdown-item
     >
-    <app-dropdown-item>Edit Recipe</app-dropdown-item>
+    <app-dropdown-item (itemClicked)="onEdit()">Edit Recipe</app-dropdown-item>
     <app-dropdown-item>Delete Recipe</app-dropdown-item>
   </app-dropdown>
   <p>{{ recipe.desc }}</p>
