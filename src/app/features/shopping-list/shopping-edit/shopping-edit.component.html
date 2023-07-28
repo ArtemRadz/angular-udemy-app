@@ -1,15 +1,66 @@
 <div class="text-white">
-  <form class="space-y-4" (ngSubmit)="onAdd()">
-    <div class="flex justify-between items-center">
-      <label class="basis-1/3" for="name">Name</label>
-      <input class="flex-1 ud-input" type="text" id="name" #nameInput />
+  <form class="space-y-4" (ngSubmit)="onSubmit()" #form="ngForm">
+    <div
+      class="space-y-4"
+      ngModelGroup="shopping-data"
+      #shoppingData="ngModelGroup">
+      <div class="flex justify-between items-center">
+        <label class="basis-1/3" for="name">Name</label>
+        <input
+          class="flex-1 ud-input"
+          type="text"
+          id="name"
+          name="name"
+          required
+          ngModel />
+      </div>
+      <div class="flex justify-between items-center">
+        <label class="basis-1/3" for="amount">Amount</label>
+        <div class="flex-1">
+          <input
+            class="ud-input w-full"
+            type="number"
+            id="amount"
+            name="amount"
+            [min]="1"
+            required
+            ngModel
+            #amount="ngModel" />
+          <p *ngIf="amount.invalid && amount.touched">
+            Please enter a valid amount!
+          </p>
+        </div>
+      </div>
+      <div>
+        <label class="basis-1/3">
+          <input type="radio" name="type" ngModel [value]="'vegetable'" />
+          Vegetable
+        </label>
+        <label class="basis-1/3">
+          <input type="radio" name="type" ngModel [value]="'fruit'" />
+          Fruit
+        </label>
+      </div>
     </div>
-    <div class="flex justify-between items-center">
-      <label class="basis-1/3" for="amount">Amount</label>
-      <input class="flex-1 ud-input" type="text" id="amount" #amountInput />
-    </div>
+    <!-- <div class="flex justify-between items-center">
+      <label class="basis-1/3" for="type">Type</label>
+      <app-select
+        [ngModel]="'fruit'"
+        name="type"
+        id="type"
+        class="flex-1"
+        required>
+        <app-select-option [value]="'vegetable'">Vegetable</app-select-option>
+        <app-select-option [value]="'fruit'">Fruit</app-select-option>
+      </app-select>
+    </div> -->
     <div class="space-x-6">
-      <button class="ud-btn bg-green-500" type="submit">Add</button>
+      <button
+        class="ud-btn bg-green-500"
+        type="submit"
+        [disabled]="form.invalid">
+        Add
+      </button>
       <button class="ud-btn bg-red-500" type="button">Delete</button>
       <button class="ud-btn bg-blue-500" type="button">Clear</button>
     </div>

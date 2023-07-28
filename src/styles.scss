@@ -9,5 +9,8 @@
 
   .ud-btn {
     @apply bg-[#343540] text-white py-2 px-3 rounded-md;
+    &:disabled {
+      @apply opacity-40 cursor-not-allowed;
+    }
   }
 }
