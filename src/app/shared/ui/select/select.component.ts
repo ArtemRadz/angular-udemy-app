@@ -2,6 +2,7 @@ import { NgClass, NgIf } from '@angular/common';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -34,6 +35,7 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
 })
 export class SelectComponent implements AfterContentInit, ControlValueAccessor {
   private readonly elRef = inject(ElementRef);
+  private readonly cf = inject(ChangeDetectorRef);
 
   private _onChange!: (_: unknown) => void;
   private _onTouched!: () => void;
@@ -136,6 +138,7 @@ export class SelectComponent implements AfterContentInit, ControlValueAccessor {
       if (shouldSelect) {
         shouldSelect.selected = true;
         this.displayValue = shouldSelect.innerText;
+        this.cf.markForCheck();
       }
     }
   }
