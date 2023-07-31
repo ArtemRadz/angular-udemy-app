@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
@@ -21,6 +22,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { SelectComponent } from 'src/app/shared/ui/select/select.component';
 import { SelectOptionComponent } from 'src/app/shared/ui/select/select-option/select-option.component';
 import { notEmptyValidator } from 'src/app/shared/validators/not-empty.validator';
+import { asyncNotEmptyValidator } from 'src/app/shared/validators/async-not-empty.validator';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -43,17 +45,22 @@ export class ShoppingEditComponent implements OnInit {
   reactiveForm!: FormGroup;
 
   constructor(
-    private shoppingListService: ShoppingListService,
-    private readonly formBuilder: FormBuilder
+    private readonly shoppingListService: ShoppingListService,
+    private readonly formBuilder: FormBuilder,
+    private cf: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    console.log('init');
     this.reactiveForm = this.formBuilder.group({
-      name: ['', notEmptyValidator],
-      amount: [1, [Validators.min(1), Validators.required]],
+      name: ['', [Validators.maxLength(3)], [asyncNotEmptyValidator]],
+      amount: [1, [Validators.min(1)]],
       type: 'fruit',
       hobbies: new FormArray([]),
+    });
+
+    this.reactiveForm.get('name')?.statusChanges.subscribe(value => {
+      console.log(value);
+      this.cf.markForCheck();
     });
   }
 
