@@ -84,6 +84,12 @@
         <app-select-option value="fruit">Fruit</app-select-option>
       </app-select>
     </div>
+    <div formArrayName="hobbies">
+      <button (click)="onAddHobby()">Add hobby</button>
+      <div *ngFor="let hobby of controls; let i = index">
+        <input class="ud-input" type="text" [formControlName]="i" />
+      </div>
+    </div>
     <div class="space-x-6">
       <button
         class="ud-btn bg-green-500"

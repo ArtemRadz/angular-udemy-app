@@ -5,7 +5,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   NgForm,
@@ -18,6 +20,7 @@ import { ShoppingListService } from '../state/shopping-list.service';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { SelectComponent } from 'src/app/shared/ui/select/select.component';
 import { SelectOptionComponent } from 'src/app/shared/ui/select/select-option/select-option.component';
+import { notEmptyValidator } from 'src/app/shared/validators/not-empty.validator';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -47,9 +50,10 @@ export class ShoppingEditComponent implements OnInit {
   ngOnInit() {
     console.log('init');
     this.reactiveForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', notEmptyValidator],
       amount: [1, [Validators.min(1), Validators.required]],
       type: 'fruit',
+      hobbies: new FormArray([]),
     });
   }
 
@@ -75,5 +79,15 @@ export class ShoppingEditComponent implements OnInit {
     //     type: 'fruit',
     //   });
     // }
+  }
+
+  onAddHobby() {
+    const hobbies = this.reactiveForm.get('hobbies') as FormArray;
+    console.dir(hobbies);
+    hobbies.push(new FormControl(null, Validators.required));
+  }
+
+  get controls() {
+    return (this.reactiveForm.get('hobbies') as FormArray).controls;
   }
 }
