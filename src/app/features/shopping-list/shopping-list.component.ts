@@ -20,4 +20,8 @@ export class ShoppingListComponent {
   );
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  onEditItem(index: number) {
+    this.shoppingListService.startedEditing.next(index);
+  }
 }

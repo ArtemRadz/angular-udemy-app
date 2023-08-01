@@ -1,28 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  NgForm,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+
+import { Subscription } from 'rxjs';
 
 import { ShoppingListService } from '../state/shopping-list.service';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { SelectComponent } from 'src/app/shared/ui/select/select.component';
 import { SelectOptionComponent } from 'src/app/shared/ui/select/select-option/select-option.component';
-import { notEmptyValidator } from 'src/app/shared/validators/not-empty.validator';
-import { asyncNotEmptyValidator } from 'src/app/shared/validators/async-not-empty.validator';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -37,64 +22,32 @@ import { asyncNotEmptyValidator } from 'src/app/shared/validators/async-not-empt
     NgFor,
     ReactiveFormsModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShoppingEditComponent implements OnInit {
+export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('form', { static: true }) ngForm!: NgForm;
+  startedEditingSubscription!: Subscription;
+  editMode = false;
 
-  reactiveForm!: FormGroup;
-
-  constructor(
-    private readonly shoppingListService: ShoppingListService,
-    private readonly formBuilder: FormBuilder,
-    private cf: ChangeDetectorRef
-  ) {}
+  constructor(private readonly shoppingListService: ShoppingListService) {}
 
   ngOnInit() {
-    this.reactiveForm = this.formBuilder.group({
-      name: ['', [Validators.maxLength(3)], [asyncNotEmptyValidator]],
-      amount: [1, [Validators.min(1)]],
-      type: 'fruit',
-      hobbies: new FormArray([]),
-    });
+    this.startedEditingSubscription =
+      this.shoppingListService.startedEditing.subscribe((index: number) => {
+        console.log(index);
+        this.editMode = true;
+      });
+  }
 
-    this.reactiveForm.get('name')?.statusChanges.subscribe(value => {
-      console.log(value);
-      this.cf.markForCheck();
-    });
+  ngOnDestroy() {
+    this.startedEditingSubscription.unsubscribe();
   }
 
   onSubmit() {
-    console.dir(this.reactiveForm);
-    if (this.reactiveForm.valid) {
+    if (this.ngForm.valid) {
       this.shoppingListService.addIngredient(
-        new Ingredient(
-          this.reactiveForm.value.name,
-          Number(this.reactiveForm.value.amount)
-        )
+        new Ingredient(this.ngForm.value.name, Number(this.ngForm.value.amount))
       );
-      this.reactiveForm.reset({
-        type: 'fruit',
-      });
+      this.ngForm.reset();
     }
-    // if (this.ngForm.valid) {
-    //   console.dir(this.ngForm);
-    //   this.shoppingListService.addIngredient(
-    //     new Ingredient(this.ngForm.value.name, Number(this.ngForm.value.amount))
-    //   );
-    //   this.ngForm.reset({
-    //     type: 'fruit',
-    //   });
-    // }
-  }
-
-  onAddHobby() {
-    const hobbies = this.reactiveForm.get('hobbies') as FormArray;
-    console.dir(hobbies);
-    hobbies.push(new FormControl(null, Validators.required));
-  }
-
-  get controls() {
-    return (this.reactiveForm.get('hobbies') as FormArray).controls;
   }
 }

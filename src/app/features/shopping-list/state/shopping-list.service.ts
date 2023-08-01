@@ -14,10 +14,15 @@ export class ShoppingListService {
     new Ingredient('Milk', 1),
   ];
 
+  private _startedEditing = new Subject<number>();
   private _ingredientChanged = new Subject<Ingredient[]>();
 
   get ingredientChanged() {
     return this._ingredientChanged;
+  }
+
+  get startedEditing() {
+    return this._startedEditing;
   }
 
   getIngredients() {
