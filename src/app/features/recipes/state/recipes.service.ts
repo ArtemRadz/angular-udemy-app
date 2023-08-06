@@ -42,9 +42,9 @@ export class RecipesService {
       [
         new Ingredient('Chicken', 1),
         new Ingredient('Onion', 1),
-        new Ingredient('Garlic:', 4),
-        new Ingredient('Canned diced tomatoes:', 0.4),
-        new Ingredient('Tomato paste:', 2),
+        new Ingredient('Garlic', 4),
+        new Ingredient('Canned diced tomatoes', 0.4),
+        new Ingredient('Tomato paste', 2),
       ]
     ),
   ];
