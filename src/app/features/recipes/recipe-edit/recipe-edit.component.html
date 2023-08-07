@@ -40,16 +40,27 @@
     <ng-container formArrayName="ingredients">
       <div
         class="flex justify-between items-center gap-x-5"
-        *ngFor="let ingredient of recipeIngredients.controls; let i = index"
+        *ngFor="let ingredient of ingredientsControl.controls; let i = index"
         [formGroupName]="i">
         <input type="text" class="w-8/12 ud-input" formControlName="name" />
         <input type="number" class="w-2/12 ud-input" formControlName="amount" />
-        <button class="ud-btn bg-red-500" type="button">Delete</button>
+        <button class="ud-btn bg-red-500" type="button" (click)="onDelete(i)">
+          Delete
+        </button>
         <!-- <p *ngIf="name.invalid && name.touched">Please enter a name!</p> -->
       </div>
     </ng-container>
+    <button
+      class="ud-btn bg-green-500"
+      (click)="onAddIngredient()"
+      type="button">
+      Add ingredient
+    </button>
     <div class="space-x-6">
-      <button class="ud-btn bg-green-500" type="submit">
+      <button
+        class="ud-btn bg-green-500"
+        type="submit"
+        [disabled]="recipeForm.invalid">
         {{ editMode ? 'Update' : 'Save' }}
       </button>
       <button class="ud-btn bg-blue-500" type="button" (click)="onCancel()">

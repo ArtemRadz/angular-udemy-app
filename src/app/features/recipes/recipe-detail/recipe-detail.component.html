@@ -6,7 +6,9 @@
       >To Shopping List</app-dropdown-item
     >
     <app-dropdown-item (itemClicked)="onEdit()">Edit Recipe</app-dropdown-item>
-    <app-dropdown-item>Delete Recipe</app-dropdown-item>
+    <app-dropdown-item (itemClicked)="onDelete()"
+      >Delete Recipe</app-dropdown-item
+    >
   </app-dropdown>
   <p>{{ recipe.desc }}</p>
   <ul class="space-y-2">

@@ -15,6 +15,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { DropdownComponent } from 'src/app/shared/ui/dropdown/dropdown.component';
 import { DropdownItemComponent } from 'src/app/shared/ui/dropdown/dropdown-item/dropdown-item.component';
 import { Recipe } from '../state/recipe.model';
+import { RecipesService } from '../state/recipes.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -30,6 +31,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private shoppingListService: ShoppingListService,
+    private recipesService: RecipesService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private cf: ChangeDetectorRef
@@ -60,5 +62,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   onEdit() {
     this.router.navigate(['edit'], { relativeTo: this.activatedRoute });
+  }
+
+  onDelete() {
+    this.recipesService.deleteRecipeById(this.recipe.id);
+    this.router.navigate(['../'], { relativeTo: this.activatedRoute });
   }
 }

@@ -35,18 +35,18 @@ export class ShoppingListService {
 
   editIngredientById(id: number, ingredient: Ingredient) {
     this.ingredients[id] = ingredient;
-    this.ingredientChanged.next(this.ingredients.slice());
+    this.ingredientChanged.next(this.getIngredients());
   }
 
   deleteIngredientById(id: number) {
     this.ingredients.splice(id, 1);
-    this.ingredientChanged.next(this.ingredients.slice());
+    this.ingredientChanged.next(this.getIngredients());
   }
 
   addIngredient(ingredient: Ingredient) {
     this.addIngredientOrIncreaseAmountOfExisting(ingredient);
 
-    this.ingredientChanged.next(this.ingredients.slice());
+    this.ingredientChanged.next(this.getIngredients());
   }
 
   addIngredients(newIngredients: Ingredient[]) {
@@ -54,7 +54,7 @@ export class ShoppingListService {
       this.addIngredientOrIncreaseAmountOfExisting(ingredient);
     });
 
-    this.ingredientChanged.next(this.ingredients.slice());
+    this.ingredientChanged.next(this.getIngredients());
   }
 
   private addIngredientOrIncreaseAmountOfExisting(ingredient: Ingredient) {
