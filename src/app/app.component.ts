@@ -5,7 +5,15 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NgIf, NgStyle, NgClass, NgFor } from '@angular/common';
+import {
+  NgIf,
+  NgStyle,
+  NgClass,
+  NgFor,
+  UpperCasePipe,
+  DatePipe,
+  AsyncPipe,
+} from '@angular/common';
 
 import { HeaderComponent } from './features/header/header.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
@@ -32,6 +40,10 @@ import { HomeComponent } from './router-app/home/home.component';
 import { UsersComponent } from './router-app/users/users.component';
 import { ServersComponent } from './router-app/servers/servers.component';
 import { RouterOutlet } from '@angular/router';
+import { ShortenPipe } from './shared/pipes/shorten.pipe';
+import { FilterPipe } from './shared/pipes/filter.pipe';
+import { ReversePipe } from './shared/pipes/reverse.pipe';
+import { SortPipe } from './shared/pipes/sort.pipe';
 
 @Component({
   standalone: true,
@@ -59,6 +71,13 @@ import { RouterOutlet } from '@angular/router';
     ActiveUsersComponent,
     InactiveUsersComponent,
     RouterOutlet,
+    UpperCasePipe,
+    DatePipe,
+    ShortenPipe,
+    FilterPipe,
+    AsyncPipe,
+    ReversePipe,
+    SortPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
