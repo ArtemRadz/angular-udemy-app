@@ -14,6 +14,7 @@ import {
   DatePipe,
   AsyncPipe,
 } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './features/header/header.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
@@ -35,7 +36,7 @@ import { ActiveUsersComponent } from './users-app/active-users/active-users.comp
 import { InactiveUsersComponent } from './users-app/inactive-users/inactive-users.component';
 import { UsersService } from './users-app/state/users.service';
 import { User } from './users-app/state/users.model';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { HomeComponent } from './router-app/home/home.component';
 import { UsersComponent } from './router-app/users/users.component';
 import { ServersComponent } from './router-app/servers/servers.component';
@@ -78,10 +79,11 @@ import { SortPipe } from './shared/pipes/sort.pipe';
     AsyncPipe,
     ReversePipe,
     SortPipe,
+    HttpClientModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   // resources: Resource[] = [];
   // resourceType = ResourceType;
   // addedResources(resource: Resource) {
@@ -131,4 +133,53 @@ export class AppComponent {
   //   this.activeUsers = this.usersService.getActiveUsers();
   //   this.inactiveUsers = this.usersService.getInactiveUsers();
   // }
+
+  loadedPosts: any = [];
+
+  constructor(private httpClient: HttpClient) {}
+
+  ngOnInit() {
+    this.fetchPosts();
+  }
+
+  onCreatePost(postData: { title: string; content: string }) {
+    console.log(postData);
+    this.httpClient
+      .post(
+        'https://angular-udemy-173d1-default-rtdb.europe-west1.firebasedatabase.app/post.json',
+        postData
+      )
+      .subscribe(res => {
+        console.dir(res);
+      });
+  }
+
+  onFetchPosts() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.httpClient
+      .get(
+        'https://angular-udemy-173d1-default-rtdb.europe-west1.firebasedatabase.app/post.json'
+      )
+      .pipe(
+        map((res: any) => {
+          const postArray = [];
+          for (const key in res) {
+            if (res.hasOwnProperty(key)) {
+              postArray.push({ ...res[key], id: key });
+            }
+          }
+
+          return postArray;
+        })
+      )
+      .subscribe(res => {
+        console.dir(res);
+        this.loadedPosts = res;
+      });
+  }
+
+  onClearPosts() {}
 }
