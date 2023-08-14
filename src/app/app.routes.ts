@@ -17,6 +17,11 @@ export const appRoutes: Route[] = [
       import('./features/recipe.routes').then(p => p.recipePageRoutes),
   },
   {
+    path: 'posts-app',
+    loadChildren: () =>
+      import('./posts-app/posts.routes').then(p => p.postsPageRoutes),
+  },
+  {
     path: 'error',
     title: 'Error Page',
     data: { message: 'Page not found' },

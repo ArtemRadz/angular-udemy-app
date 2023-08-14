@@ -1,10 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   NgIf,
   NgStyle,
@@ -14,7 +9,6 @@ import {
   DatePipe,
   AsyncPipe,
 } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './features/header/header.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
@@ -45,7 +39,7 @@ import { ShortenPipe } from './shared/pipes/shorten.pipe';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ReversePipe } from './shared/pipes/reverse.pipe';
 import { SortPipe } from './shared/pipes/sort.pipe';
-import { environment } from '../environments/environment';
+import { PostsComponent } from './posts-app/posts/posts.component';
 
 @Component({
   standalone: true,
@@ -80,11 +74,11 @@ import { environment } from '../environments/environment';
     AsyncPipe,
     ReversePipe,
     SortPipe,
-    HttpClientModule,
+    PostsComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   // resources: Resource[] = [];
   // resourceType = ResourceType;
   // addedResources(resource: Resource) {
@@ -134,48 +128,4 @@ export class AppComponent implements OnInit {
   //   this.activeUsers = this.usersService.getActiveUsers();
   //   this.inactiveUsers = this.usersService.getInactiveUsers();
   // }
-
-  loadedPosts: any = [];
-
-  constructor(private httpClient: HttpClient) {}
-
-  ngOnInit() {
-    this.fetchPosts();
-  }
-
-  onCreatePost(postData: { title: string; content: string }) {
-    console.log(postData);
-    this.httpClient
-      .post(`${environment.firebaseUrl}/post.json`, postData)
-      .subscribe(res => {
-        console.dir(res);
-      });
-  }
-
-  onFetchPosts() {
-    this.fetchPosts();
-  }
-
-  fetchPosts() {
-    this.httpClient
-      .get(`${environment.firebaseUrl}/post.json`)
-      .pipe(
-        map((res: any) => {
-          const postArray = [];
-          for (const key in res) {
-            if (res.hasOwnProperty(key)) {
-              postArray.push({ ...res[key], id: key });
-            }
-          }
-
-          return postArray;
-        })
-      )
-      .subscribe(res => {
-        console.dir(res);
-        this.loadedPosts = res;
-      });
-  }
-
-  onClearPosts() {}
 }
