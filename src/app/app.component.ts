@@ -36,7 +36,7 @@ import { ActiveUsersComponent } from './users-app/active-users/active-users.comp
 import { InactiveUsersComponent } from './users-app/inactive-users/inactive-users.component';
 import { UsersService } from './users-app/state/users.service';
 import { User } from './users-app/state/users.model';
-import { map, Subscription } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { HomeComponent } from './router-app/home/home.component';
 import { UsersComponent } from './router-app/users/users.component';
 import { ServersComponent } from './router-app/servers/servers.component';
@@ -45,6 +45,7 @@ import { ShortenPipe } from './shared/pipes/shorten.pipe';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ReversePipe } from './shared/pipes/reverse.pipe';
 import { SortPipe } from './shared/pipes/sort.pipe';
+import { environment } from '../environments/environment';
 
 @Component({
   standalone: true,
@@ -145,10 +146,7 @@ export class AppComponent implements OnInit {
   onCreatePost(postData: { title: string; content: string }) {
     console.log(postData);
     this.httpClient
-      .post(
-        'https://angular-udemy-173d1-default-rtdb.europe-west1.firebasedatabase.app/post.json',
-        postData
-      )
+      .post(`${environment.firebaseUrl}/post.json`, postData)
       .subscribe(res => {
         console.dir(res);
       });
@@ -160,9 +158,7 @@ export class AppComponent implements OnInit {
 
   fetchPosts() {
     this.httpClient
-      .get(
-        'https://angular-udemy-173d1-default-rtdb.europe-west1.firebasedatabase.app/post.json'
-      )
+      .get(`${environment.firebaseUrl}/post.json`)
       .pipe(
         map((res: any) => {
           const postArray = [];
