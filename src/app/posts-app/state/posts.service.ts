@@ -1,7 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEventType,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, map, Subject, throwError } from 'rxjs';
+import { catchError, map, Subject, tap, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Post } from './posts.model';
@@ -16,7 +21,10 @@ export class PostsService {
 
   getPosts() {
     return this.httpClient
-      .get<{ [key: string]: Post }>(`${environment.firebaseUrl}/post.json`)
+      .get<{ [key: string]: Post }>(`${environment.firebaseUrl}/post.json`, {
+        headers: new HttpHeaders({ 'custom-header': 'Hello' }),
+        params: new HttpParams().set('print', 'pretty'),
+      })
       .pipe(
         map(res => {
           const postArray: Post[] = [];
@@ -43,6 +51,17 @@ export class PostsService {
   }
 
   deletePosts() {
-    return this.httpClient.delete(`${environment.firebaseUrl}/post.json`);
+    return this.httpClient
+      .delete(`${environment.firebaseUrl}/post.json`, {
+        observe: 'events',
+      })
+      .pipe(
+        tap(event => {
+          console.dir(event);
+          if (event.type === HttpEventType.Response) {
+            console.log(event.body);
+          }
+        })
+      );
   }
 }
