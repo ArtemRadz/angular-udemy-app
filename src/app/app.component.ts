@@ -1,5 +1,11 @@
 import { FormsModule } from '@angular/forms';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   NgIf,
   NgStyle,
@@ -40,6 +46,8 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ReversePipe } from './shared/pipes/reverse.pipe';
 import { SortPipe } from './shared/pipes/sort.pipe';
 import { PostsComponent } from './posts-app/posts/posts.component';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   standalone: true,
@@ -128,4 +136,49 @@ export class AppComponent {
   //   this.activeUsers = this.usersService.getActiveUsers();
   //   this.inactiveUsers = this.usersService.getInactiveUsers();
   // }
+
+  loadedPosts: any = [];
+
+  constructor(private httpClient: HttpClient, private cf: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.fetchPosts();
+  }
+
+  onCreatePost(postData: { title: string; content: string }) {
+    console.log(postData);
+    this.httpClient
+      .post(`${environment.firebaseUrl}/post.json`, postData)
+      .subscribe(res => {
+        console.dir(res);
+      });
+  }
+
+  onFetchPosts() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.httpClient
+      .get(`${environment.firebaseUrl}/post.json`)
+      .pipe(
+        map((res: any) => {
+          const postArray = [];
+          for (const key in res) {
+            if (res.hasOwnProperty(key)) {
+              postArray.push({ ...res[key], id: key });
+            }
+          }
+
+          return postArray;
+        })
+      )
+      .subscribe(res => {
+        console.dir(res);
+        this.loadedPosts = res;
+        this.cf.markForCheck();
+      });
+  }
+
+  onClearPosts() {}
 }
