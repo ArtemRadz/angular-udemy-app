@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { recipeDetailResolver } from './recipe-detail/recipe-detail.resolver';
+import { recipesResolver } from './recipes.resolver';
 
 export const recipesRoutes: Routes = [
   {
     path: '',
     title: 'Recipes',
+    resolve: [recipesResolver],
     loadComponent: () =>
       import('./recipes.component').then(a => a.RecipesComponent),
     children: [
