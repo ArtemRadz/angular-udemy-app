@@ -17,6 +17,11 @@ export const recipePageRoutes: Routes = [
           import('./recipes/recipes.routes').then(a => a.recipesRoutes),
       },
       {
+        path: 'auth',
+        loadChildren: () =>
+          import('../features/auth/auth.routes').then(a => a.authRoutes),
+      },
+      {
         path: '',
         redirectTo: 'recipes',
         pathMatch: 'full',

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Subject, map, tap } from 'rxjs';
 
 import { Recipe } from './recipe.model';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
