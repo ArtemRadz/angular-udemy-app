@@ -53,13 +53,13 @@ export class RecipesService {
   storeRecipes() {
     const recipes = this.getRecipes();
     this.httpClient
-      .put(`${environment.firebaseUrl}/recipes.json`, recipes)
+      .put(`${environment.firebaseEndpoint}/recipes.json`, recipes)
       .subscribe(data => console.dir(data));
   }
 
   fetchRecipes() {
     return this.httpClient
-      .get<Recipe[]>(`${environment.firebaseUrl}/recipes.json`)
+      .get<Recipe[]>(`${environment.firebaseEndpoint}/recipes.json`)
       .pipe(
         map(recipes => {
           return recipes.map(recipe => {

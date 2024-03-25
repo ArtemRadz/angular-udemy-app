@@ -1,6 +1,6 @@
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 
-import { Observable, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export function authInterceptor(
   req: HttpRequest<unknown>,

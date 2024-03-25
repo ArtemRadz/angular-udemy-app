@@ -21,10 +21,13 @@ export class PostsService {
 
   getPosts() {
     return this.httpClient
-      .get<{ [key: string]: Post }>(`${environment.firebaseUrl}/post.json`, {
-        headers: new HttpHeaders({ 'custom-header': 'Hello' }),
-        params: new HttpParams().set('print', 'pretty'),
-      })
+      .get<{ [key: string]: Post }>(
+        `${environment.firebaseEndpoint}/post.json`,
+        {
+          headers: new HttpHeaders({ 'custom-header': 'Hello' }),
+          params: new HttpParams().set('print', 'pretty'),
+        }
+      )
       .pipe(
         map(res => {
           const postArray: Post[] = [];
@@ -45,14 +48,14 @@ export class PostsService {
 
   createPost(data: Post) {
     return this.httpClient.post<{ name: string }>(
-      `${environment.firebaseUrl}/post.json`,
+      `${environment.firebaseEndpoint}/post.json`,
       data
     );
   }
 
   deletePosts() {
     return this.httpClient
-      .delete(`${environment.firebaseUrl}/post.json`, {
+      .delete(`${environment.firebaseEndpoint}/post.json`, {
         observe: 'events',
       })
       .pipe(

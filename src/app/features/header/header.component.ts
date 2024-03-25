@@ -2,10 +2,10 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { DropdownItemComponent } from 'src/app/shared/ui/dropdown/dropdown-item/dropdown-item.component';
 import { DropdownComponent } from 'src/app/shared/ui/dropdown/dropdown.component';
 import { RecipesService } from '../recipes/state/recipes.service';
+import { AuthService } from '../auth/state/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -28,12 +28,8 @@ export class HeaderComponent {
     private recipesService: RecipesService
   ) {}
 
-  login() {
-    this.authService.login();
-  }
-
   logout() {
-    this.authService.logout();
+    // this.authService.logout();
   }
 
   save() {

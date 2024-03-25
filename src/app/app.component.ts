@@ -5,6 +5,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import {
   NgIf,
@@ -48,6 +49,8 @@ import { SortPipe } from './shared/pipes/sort.pipe';
 import { PostsComponent } from './posts-app/posts/posts.component';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { LoadingComponent } from './shared/ui/loading/loading.component';
+import { LoadingQuery } from './shared/data-access/loading/loading.query';
 
 @Component({
   standalone: true,
@@ -83,10 +86,13 @@ import { environment } from 'src/environments/environment';
     ReversePipe,
     SortPipe,
     PostsComponent,
+    LoadingComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+  protected readonly isLoading = inject(LoadingQuery).isLoading;
+
   // resources: Resource[] = [];
   // resourceType = ResourceType;
   // addedResources(resource: Resource) {

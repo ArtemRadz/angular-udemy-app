@@ -22,6 +22,8 @@
         class="w-full ud-input" />
     </div>
   </div>
+  <app-form-error class="mt-3" *ngIf="form.errors" [errors]="form.errors">
+  </app-form-error>
   <button
     class="ud-btn bg-green-500 mr-4"
     type="submit"
