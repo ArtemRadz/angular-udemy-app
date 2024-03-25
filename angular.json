@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-udemy:build:production"
+              "buildTarget": "angular-udemy:build:production"
             },
             "development": {
-              "browserTarget": "angular-udemy:build:development"
+              "buildTarget": "angular-udemy:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-udemy:build"
+            "buildTarget": "angular-udemy:build"
           }
         },
         "test": {
