@@ -1,4 +1,3 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -21,7 +20,7 @@ import { RecipesService } from '../state/recipes.service';
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
-  imports: [NgFor, NgIf, AsyncPipe, DropdownComponent, DropdownItemComponent],
+  imports: [DropdownComponent, DropdownItemComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

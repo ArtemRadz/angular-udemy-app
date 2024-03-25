@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -17,7 +16,7 @@ import { PostsService } from '../state/posts.service';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor],
+  imports: [FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostsComponent implements OnInit, OnDestroy {

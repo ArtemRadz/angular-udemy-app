@@ -6,18 +6,17 @@
     <app-shopping-list></app-shopping-list> -->
 
     <!-- <app-cockpit (createdResource)="addedResources($event)"></app-cockpit>
-    <app-server-item *ngFor="let resource of resources" [resource]="resource">
-      <p #contentChild>
-        <strong
-          *ngIf="resource.type === resourceType.Server; else blueprint"
-          class="text-red-500"
-          >{{ resource.content }}</strong
-        >
-        <ng-template #blueprint>
-          <em class="text-blue-500">{{ resource.content }}</em>
-        </ng-template>
-      </p>
-    </app-server-item> -->
+    @for (resource of resources; track resource.name) {
+      <app-server-item [resource]="resource">
+        <p #contentChild>
+          @if (resource.type === resourceType.Server) {
+            <strong class="text-red-500">{{ resource.content }}</strong>
+          } @else {
+            <em class="text-blue-500">{{ resource.content }}</em>
+          }
+        </p>
+      </app-server-item>
+    } -->
 
     <!-- <button (click)="state = !state">Change</button>
     <div *appUnless="state">
@@ -25,9 +24,11 @@
     </div> -->
 
     <!-- <app-select [(ngModel)]="selectSelected">
-      <app-select-option *ngFor="let item of selectData" [value]="item">
-        {{ item.name }}
-      </app-select-option>
+      @for (item of selectData; track item.value) {
+        <app-select-option [value]="item">
+          {{ item.name }}
+        </app-select-option>
+      }
     </app-select>
 
     <button (click)="select()">Select</button>
@@ -35,12 +36,13 @@
 
     <!-- <app-new-account (addedAccount)="onAddedAccount($event)"></app-new-account>
     <app-account-list>
-      <app-account-item
-        *ngFor="let ac of accounts"
-        [account]="ac"
-        (changedStatus)="onChangedStatus(ac, $event)"
-        class="block"></app-account-item
-    ></app-account-list> -->
+      @for (ac of accounts; track ac.id) {
+        <app-account-item
+          [account]="ac"
+          (changedStatus)="onChangedStatus(ac, $event)"
+          class="block"></app-account-item>
+      }
+    </app-account-list> -->
 
     <!-- <app-active-users [users]="activeUsers"></app-active-users>
     <app-inactive-users [users]="inactiveUsers"></app-inactive-users> -->
@@ -48,4 +50,6 @@
     <router-outlet></router-outlet>
   </div>
 </main>
-<app-loading *ngIf="isLoading()"></app-loading>
+@if (isLoading()) {
+  <app-loading></app-loading>
+}

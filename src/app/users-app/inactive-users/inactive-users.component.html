@@ -1,7 +1,9 @@
 <h3>Inactive Users</h3>
 <ul>
-  <li *ngFor="let user of users">
-    {{ user.name }} |
-    <button (click)="onChangeStatus(user.id)">Set to Active</button>
-  </li>
+  @for (user of users; track user.id) {
+    <li>
+      {{ user.name }} |
+      <button (click)="onChangeStatus(user.id)">Set to Active</button>
+    </li>
+  }
 </ul>

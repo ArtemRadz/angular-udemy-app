@@ -42,27 +42,33 @@
 </div>
 
 <div class="mt-6">
-  <ul *ngIf="loadedPosts.length !== 0 && !isLoading" class="space-y-3">
-    <li
-      *ngFor="let post of loadedPosts"
-      class="px-5 py-3 border border-solid border-white text-base">
-      <p>
-        <span class="text-lg text-fuchsia-500">Title: </span>{{ post.title }}
-      </p>
-      <p>
-        <span class="text-lg text-fuchsia-500">Content: </span
-        >{{ post.content }}
-      </p>
-    </li>
-  </ul>
+  @if (loadedPosts.length !== 0 && !isLoading) {
+    <ul class="space-y-3">
+      @for (post of loadedPosts; track post.id) {
+        <li class="px-5 py-3 border border-solid border-white text-base">
+          <p>
+            <span class="text-lg text-fuchsia-500">Title: </span
+            >{{ post.title }}
+          </p>
+          <p>
+            <span class="text-lg text-fuchsia-500">Content: </span
+            >{{ post.content }}
+          </p>
+        </li>
+      } @empty {
+        <p>No posts available!</p>
+      }
+    </ul>
+  }
 
-  <p *ngIf="loadedPosts.length === 0 && !isLoading && !error">
-    No posts available!
-  </p>
+  @if (isLoading && !error) {
+    <p>Loading...</p>
+  }
 
-  <p *ngIf="isLoading && !error">Loading...</p>
-  <h1 *ngIf="error">
-    <span class="text-red-400">An Error Occured: {{ error }}</span>
-    <button class="ud-btn" (click)="onHandleError()">Ok</button>
-  </h1>
+  @if (error) {
+    <h1>
+      <span class="text-red-400">An Error Occured: {{ error }}</span>
+      <button class="ud-btn" (click)="onHandleError()">Ok</button>
+    </h1>
+  }
 </div>

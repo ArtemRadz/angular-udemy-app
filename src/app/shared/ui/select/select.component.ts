@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -23,7 +23,7 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
   standalone: true,
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
-  imports: [NgClass, NgIf, ClickOutsideDirective],
+  imports: [NgClass, ClickOutsideDirective],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

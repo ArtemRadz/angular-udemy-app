@@ -1,10 +1,12 @@
 <div>
   <ul>
-    <li *ngFor="let user of users">
-      <a [routerLink]="['/router-app/users', user.id]">
-        {{ user.name }}
-      </a>
-    </li>
+    @for (user of users; track user.id) {
+      <li>
+        <a [routerLink]="['/router-app/users', user.id]">
+          {{ user.name }}
+        </a>
+      </li>
+    }
   </ul>
   <router-outlet></router-outlet>
 </div>

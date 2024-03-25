@@ -12,15 +12,16 @@
   </app-dropdown>
   <p>{{ recipe.desc }}</p>
   <ul class="space-y-2">
-    <li
-      *ngFor="let ingredient of recipe.ingredients"
-      class="cursor-pointer text-[wheat] p-2 border border-solid border-[#34353f] rounded-lg">
-      <p>
-        <span class="inline-block first-letter:uppercase">{{
-          ingredient.name
-        }}</span>
-        <span>({{ ingredient.amount }})</span>
-      </p>
-    </li>
+    @for (ingredient of recipe.ingredients; track ingredient.name) {
+      <li
+        class="cursor-pointer text-[wheat] p-2 border border-solid border-[#34353f] rounded-lg">
+        <p>
+          <span class="inline-block first-letter:uppercase">{{
+            ingredient.name
+          }}</span>
+          <span>({{ ingredient.amount }})</span>
+        </p>
+      </li>
+    }
   </ul>
 </div>

@@ -4,7 +4,6 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -25,7 +24,7 @@ import { FormErrorComponent } from 'src/app/shared/ui/form-message/form-error/fo
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, RouterLink, FormErrorComponent],
+  imports: [ReactiveFormsModule, RouterLink, FormErrorComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {

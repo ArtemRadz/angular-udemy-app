@@ -7,9 +7,9 @@
     <label class="basis-1/3" for="status">Status</label>
 
     <app-select class="flex-1" id="status" [(ngModel)]="selectedStatus">
-      <app-select-option *ngFor="let status of statusArray" [value]="status">{{
-        status
-      }}</app-select-option>
+      @for (status of statusArray; track status) {
+        <app-select-option [value]="status">{{ status }}</app-select-option>
+      }
     </app-select>
   </div>
   <div class="space-x-6">

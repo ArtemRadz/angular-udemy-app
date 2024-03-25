@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -26,12 +25,7 @@ import { AuthService } from '../state/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgIf,
-    FormErrorComponent,
-    FormSuccessComponent,
-  ],
+  imports: [ReactiveFormsModule, FormErrorComponent, FormSuccessComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {

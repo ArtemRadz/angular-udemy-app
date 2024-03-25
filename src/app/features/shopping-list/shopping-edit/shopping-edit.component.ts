@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 
@@ -16,10 +15,8 @@ import { SelectOptionComponent } from 'src/app/shared/ui/select/select-option/se
   styleUrls: ['./shopping-edit.component.scss'],
   imports: [
     FormsModule,
-    NgIf,
     SelectComponent,
     SelectOptionComponent,
-    NgFor,
     ReactiveFormsModule,
   ],
 })

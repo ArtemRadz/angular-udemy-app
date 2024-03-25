@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { RecipeItemComponent } from './recipe-item/recipe-item.component';
   standalone: true,
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss'],
-  imports: [RecipeItemComponent, NgFor, AsyncPipe],
+  imports: [RecipeItemComponent, AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeListComponent {

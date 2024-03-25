@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +13,6 @@ import { Resource, ResourceType } from '../state/server.model';
   selector: 'app-server-item',
   templateUrl: './server-item.component.html',
   styleUrls: ['./server-item.component.scss'],
-  imports: [NgIf],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { User } from './state/users.model';
@@ -9,7 +8,7 @@ import { UsersService } from './state/users.service';
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  imports: [NgFor, RouterLink, RouterOutlet],
+  imports: [RouterLink, RouterOutlet],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
@@ -12,7 +11,7 @@ import { Server, ServerStatus } from '../state/servers.model';
   selector: 'app-edit-server',
   templateUrl: './edit-server.component.html',
   styleUrls: ['./edit-server.component.scss'],
-  imports: [NgIf, NgFor, FormsModule, SelectComponent, SelectOptionComponent],
+  imports: [FormsModule, SelectComponent, SelectOptionComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

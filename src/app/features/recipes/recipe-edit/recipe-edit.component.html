@@ -38,17 +38,24 @@
       </div>
     </div>
     <ng-container formArrayName="ingredients">
-      <div
-        class="flex justify-between items-center gap-x-5"
-        *ngFor="let ingredient of ingredientsControl.controls; let i = index"
-        [formGroupName]="i">
-        <input type="text" class="w-8/12 ud-input" formControlName="name" />
-        <input type="number" class="w-2/12 ud-input" formControlName="amount" />
-        <button class="ud-btn bg-red-500" type="button" (click)="onDelete(i)">
-          Delete
-        </button>
-        <!-- <p *ngIf="name.invalid && name.touched">Please enter a name!</p> -->
-      </div>
+      @for (ingredient of ingredientsControl.controls; track $index) {
+        <div
+          class="flex justify-between items-center gap-x-5"
+          [formGroupName]="$index">
+          <input type="text" class="w-8/12 ud-input" formControlName="name" />
+          <input
+            type="number"
+            class="w-2/12 ud-input"
+            formControlName="amount" />
+          <button
+            class="ud-btn bg-red-500"
+            type="button"
+            (click)="onDelete($index)">
+            Delete
+          </button>
+          <!-- <p *ngIf="name.invalid && name.touched">Please enter a name!</p> -->
+        </div>
+      }
     </ng-container>
     <button
       class="ud-btn bg-green-500"

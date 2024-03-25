@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { ServersService } from './state/servers.service';
@@ -10,7 +9,7 @@ import { ServerComponent } from './server/server.component';
   selector: 'app-servers',
   templateUrl: './servers.component.html',
   styleUrls: ['./servers.component.scss'],
-  imports: [RouterLink, NgFor, ServerComponent, RouterOutlet],
+  imports: [RouterLink, ServerComponent, RouterOutlet],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

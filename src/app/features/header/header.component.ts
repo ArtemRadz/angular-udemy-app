@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -15,7 +15,6 @@ import { AuthService } from '../auth/state/auth.service';
   imports: [
     RouterLinkActive,
     RouterLink,
-    NgIf,
     AsyncPipe,
     DropdownItemComponent,
     DropdownComponent,

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { startWith } from 'rxjs';
@@ -11,7 +11,7 @@ import { ShoppingListService } from './state/shopping-list.service';
   standalone: true,
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.scss'],
-  imports: [ShoppingEditComponent, NgFor, AsyncPipe],
+  imports: [ShoppingEditComponent, AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShoppingListComponent {

@@ -8,10 +8,8 @@ import {
   inject,
 } from '@angular/core';
 import {
-  NgIf,
   NgStyle,
   NgClass,
-  NgFor,
   UpperCasePipe,
   DatePipe,
   AsyncPipe,
@@ -62,8 +60,6 @@ import { LoadingQuery } from './shared/data-access/loading/loading.query';
     HeaderComponent,
     NgStyle,
     NgClass,
-    NgIf,
-    NgFor,
     RecipesComponent,
     ShoppingListComponent,
     CockpitComponent,

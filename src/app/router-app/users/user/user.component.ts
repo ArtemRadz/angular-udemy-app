@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 
 import { User } from '../state/users.model';
@@ -16,7 +15,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  imports: [RouterLink, NgIf],
+  imports: [RouterLink],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

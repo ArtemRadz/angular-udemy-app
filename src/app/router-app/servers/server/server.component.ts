@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs';
@@ -16,7 +15,7 @@ import { Server } from '../state/servers.model';
   selector: 'app-server',
   templateUrl: './server.component.html',
   styleUrls: ['./server.component.scss'],
-  imports: [NgIf, RouterLink],
+  imports: [RouterLink],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormArray,
@@ -18,7 +17,7 @@ import { RecipesService } from '../state/recipes.service';
   standalone: true,
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.scss'],
-  imports: [NgFor, NgIf, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeEditComponent implements OnInit {

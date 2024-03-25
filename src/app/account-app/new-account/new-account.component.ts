@@ -4,7 +4,6 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Account, AccountStatus } from '../state/account.model';
@@ -17,7 +16,7 @@ import { SelectOptionComponent } from 'src/app/shared/ui/select/select-option/se
   standalone: true,
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.scss'],
-  imports: [FormsModule, NgFor, SelectComponent, SelectOptionComponent],
+  imports: [FormsModule, SelectComponent, SelectOptionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewAccountComponent {
