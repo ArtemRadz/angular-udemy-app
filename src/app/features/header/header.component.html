@@ -18,7 +18,10 @@
       <app-dropdown-item (itemClicked)="save()">Save Data</app-dropdown-item>
       <app-dropdown-item (itemClicked)="fetch()">Fetch Data</app-dropdown-item>
     </app-dropdown>
-    <!-- <button (click)="logout()" class="ud-btn">Logout</button> -->
-    <a routerLink="recipe-app/auth/login">Login</a>
+    @if (isAuthenticated()) {
+      <button (click)="logout()" class="ud-btn">Logout</button>
+    } @else {
+      <a routerLink="recipe-app/auth/login">Login</a>
+    }
   </div>
 </header>

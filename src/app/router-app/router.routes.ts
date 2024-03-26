@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from '../shared/guards/auth-guard';
-
 export const routerPageRoutes: Routes = [
   {
     path: '',
@@ -19,7 +17,6 @@ export const routerPageRoutes: Routes = [
           import('./servers/servers.routes').then(a => a.serversRoutes),
       },
       {
-        canActivate: [authGuard],
         path: 'users',
         title: 'Users',
         loadChildren: () =>

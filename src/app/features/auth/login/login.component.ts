@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { finalize } from 'rxjs';
 
@@ -28,12 +28,14 @@ import { FormErrorComponent } from 'src/app/shared/ui/form-message/form-error/fo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  form!: FormGroup;
+  protected form!: FormGroup;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private cf: ChangeDetectorRef
+    private readonly router: Router,
+    private readonly cf: ChangeDetectorRef,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    const redirectUrl =
+      this.activatedRoute.snapshot.queryParamMap.get('redirectUrl') ??
+      '/recipe-app/recipes';
+
     if (this.form.valid) {
       this.authService
         .signIn(this.form.value)
@@ -52,6 +58,7 @@ export class LoginComponent implements OnInit {
         )
         .subscribe(() => {
           this.form.reset();
+          this.router.navigateByUrl(redirectUrl);
         });
     }
   }

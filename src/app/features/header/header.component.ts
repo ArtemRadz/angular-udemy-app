@@ -6,6 +6,7 @@ import { DropdownItemComponent } from 'src/app/shared/ui/dropdown/dropdown-item/
 import { DropdownComponent } from 'src/app/shared/ui/dropdown/dropdown.component';
 import { RecipesService } from '../recipes/state/recipes.service';
 import { AuthService } from '../auth/state/auth.service';
+import { AuthQuery } from '../auth/state/auth.query';
 
 @Component({
   selector: 'app-header',
@@ -22,13 +23,16 @@ import { AuthService } from '../auth/state/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
+  protected readonly isAuthenticated = this.authQuery.isAuthenticated;
+
   constructor(
-    private authService: AuthService,
-    private recipesService: RecipesService
+    private readonly authService: AuthService,
+    private readonly authQuery: AuthQuery,
+    private readonly recipesService: RecipesService
   ) {}
 
   logout() {
-    // this.authService.logout();
+    this.authService.logout();
   }
 
   save() {

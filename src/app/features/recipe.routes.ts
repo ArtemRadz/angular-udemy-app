@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from '../shared/guards/auth-guard';
+import { authGuard } from './auth/auth-guard';
 
 export const recipePageRoutes: Routes = [
   {

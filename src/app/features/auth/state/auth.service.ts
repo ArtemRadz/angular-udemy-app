@@ -25,6 +25,26 @@ export class AuthService {
   private readonly loadingService = inject(LoadingService);
   private readonly authStore = inject(AuthStore);
 
+  initialize() {
+    const user = localStorage.getItem(USER_KEY);
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+    const userParsed: User | null = user ? JSON.parse(user) : null;
+    if (userParsed) {
+      userParsed.expirationDate = new Date(userParsed.expirationDate);
+    }
+
+    if (
+      userParsed &&
+      accessToken &&
+      refreshToken &&
+      new Date() < userParsed.expirationDate
+    ) {
+      this.authStore.accessToken.set(accessToken);
+      this.authStore.user.set(userParsed);
+    }
+  }
+
   signUp(formData: Omit<SignRequest, 'returnSecureToken'>) {
     this.loadingService.on();
 
@@ -71,6 +91,14 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this.authStore.reset();
+
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+  }
+
   private handleSignUpResponse(response: SignUpResponse) {
     const expirationDate = new Date(
       new Date().getTime() + parseInt(response.expiresIn) * 1000
@@ -94,7 +122,6 @@ export class AuthService {
     const expirationDate = new Date(
       new Date().getTime() + parseInt(response.expiresIn) * 1000
     );
-    console.log(expirationDate);
     const user: User = {
       email: response.email,
       idToken: response.idToken,
