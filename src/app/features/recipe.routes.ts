@@ -8,7 +8,6 @@ export const recipePageRoutes: Routes = [
     children: [
       {
         path: 'shopping-list',
-        canActivate: [authGuard],
         loadChildren: () =>
           import('./shopping-list/shopping-list.routes').then(
             a => a.shoppingListRoutes
@@ -27,7 +26,7 @@ export const recipePageRoutes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'recipes',
+        redirectTo: 'shopping-list',
         pathMatch: 'full',
       },
     ],

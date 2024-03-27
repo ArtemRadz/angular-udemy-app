@@ -8,17 +8,21 @@
       <li routerLinkActive="active" role="presentation">
         <a routerLink="recipe-app/shopping-list">Shopping List</a>
       </li>
-      <li routerLinkActive="active" role="presentation">
-        <a routerLink="recipe-app/recipes">Recipe Book</a>
-      </li>
+      @if (isAuthenticated()) {
+        <li routerLinkActive="active" role="presentation">
+          <a routerLink="recipe-app/recipes">Recipe Book</a>
+        </li>
+      }
     </ul>
   </nav>
   <div class="flex space-x-5">
-    <app-dropdown class="max-w-xs block" [title]="'Manage'">
-      <app-dropdown-item (itemClicked)="save()">Save Data</app-dropdown-item>
-      <app-dropdown-item (itemClicked)="fetch()">Fetch Data</app-dropdown-item>
-    </app-dropdown>
     @if (isAuthenticated()) {
+      <app-dropdown class="max-w-xs block" [title]="'Manage'">
+        <app-dropdown-item (itemClicked)="save()">Save Data</app-dropdown-item>
+        <app-dropdown-item (itemClicked)="fetch()"
+          >Fetch Data</app-dropdown-item
+        >
+      </app-dropdown>
       <button (click)="logout()" class="ud-btn">Logout</button>
     } @else {
       <a routerLink="recipe-app/auth/login">Login</a>

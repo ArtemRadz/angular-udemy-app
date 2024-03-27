@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { finalize, tap } from 'rxjs';
 import {
@@ -24,6 +25,7 @@ export class AuthService {
   private readonly httpClient = inject(HttpClient);
   private readonly loadingService = inject(LoadingService);
   private readonly authStore = inject(AuthStore);
+  private readonly router = inject(Router);
 
   initialize() {
     const user = localStorage.getItem(USER_KEY);
@@ -54,7 +56,10 @@ export class AuthService {
       returnSecureToken: true,
     };
 
-    const queryParams = { key: environment.firebaseWebApiKey };
+    const queryParams = new HttpParams().set(
+      'key',
+      environment.firebaseWebApiKey
+    );
 
     return this.httpClient
       .post<SignUpResponse>(environment.signUpEndpoint, requestBody, {
@@ -77,7 +82,10 @@ export class AuthService {
       returnSecureToken: true,
     };
 
-    const queryParams = { key: environment.firebaseWebApiKey };
+    const queryParams = new HttpParams().set(
+      'key',
+      environment.firebaseWebApiKey
+    );
 
     return this.httpClient
       .post<SignInResponse>(environment.signInEndpoint, requestBody, {
@@ -97,6 +105,12 @@ export class AuthService {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
+
+    this.router.navigate(['/recipe-app/shopping-list']);
+  }
+
+  reset() {
+    this.authStore.reset();
   }
 
   private handleSignUpResponse(response: SignUpResponse) {
