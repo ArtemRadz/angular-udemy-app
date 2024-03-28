@@ -5,9 +5,11 @@ import { User } from './auth.model';
 export class AuthStore {
   user = signal<User | null>(null);
   accessToken = signal<string | null>(null);
+  refreshToken = signal<string | null>(null);
 
   reset() {
     this.user.set(null);
     this.accessToken.set(null);
+    this.refreshToken.set(null);
   }
 }

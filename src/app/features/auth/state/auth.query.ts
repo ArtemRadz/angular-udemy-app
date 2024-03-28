@@ -6,11 +6,14 @@ import { AuthStore } from './auth.store';
 export class AuthQuery {
   readonly user = this.store.user.asReadonly();
   readonly accessToken = this.store.accessToken.asReadonly();
+  readonly refreshToken = this.store.refreshToken.asReadonly();
 
   readonly isAuthenticated = computed(() => {
-    const user = this.store.user();
-
-    return this.store.accessToken() && user && new Date() < user.expirationDate;
+    return (
+      !!this.store.accessToken() &&
+      !!this.store.refreshToken() &&
+      !!this.store.user()
+    );
   });
 
   constructor(private store: AuthStore) {}

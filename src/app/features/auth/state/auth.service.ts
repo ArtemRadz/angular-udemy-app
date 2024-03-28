@@ -7,6 +7,8 @@ import {
   SignRequest,
   SignUpResponse,
   SignInResponse,
+  RefreshTokenRequest,
+  RefreshTokenResponse,
 } from 'src/app/shared/data-access/firebase/models/auth.model';
 import { LoadingService } from 'src/app/shared/data-access/loading/loading.service';
 
@@ -32,17 +34,10 @@ export class AuthService {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
     const userParsed: User | null = user ? JSON.parse(user) : null;
-    if (userParsed) {
-      userParsed.expirationDate = new Date(userParsed.expirationDate);
-    }
 
-    if (
-      userParsed &&
-      accessToken &&
-      refreshToken &&
-      new Date() < userParsed.expirationDate
-    ) {
+    if (userParsed && accessToken && refreshToken) {
       this.authStore.accessToken.set(accessToken);
+      this.authStore.refreshToken.set(refreshToken);
       this.authStore.user.set(userParsed);
     }
   }
@@ -113,38 +108,66 @@ export class AuthService {
     this.authStore.reset();
   }
 
-  private handleSignUpResponse(response: SignUpResponse) {
-    const expirationDate = new Date(
-      new Date().getTime() + parseInt(response.expiresIn) * 1000
+  refreshToken() {
+    const queryParams = new HttpParams().set(
+      'key',
+      environment.firebaseWebApiKey
     );
+
+    const requestBody: RefreshTokenRequest = {
+      grant_type: 'refresh_token',
+      refresh_token: this.authStore.refreshToken() as string,
+    };
+
+    return this.httpClient
+      .post<RefreshTokenResponse>(
+        environment.refreshTokenEndpoint,
+        requestBody,
+        {
+          params: queryParams,
+        }
+      )
+      .pipe(
+        tap(response => {
+          this.handleRefreshTokenResponse(response);
+        })
+      );
+  }
+
+  private handleSignUpResponse(response: SignUpResponse) {
     const user: User = {
       email: response.email,
       idToken: response.idToken,
       localId: response.localId,
-      expirationDate: expirationDate,
     };
 
     this.authStore.user.set(user);
     this.authStore.accessToken.set(response.idToken);
+    this.authStore.refreshToken.set(response.refreshToken);
 
     localStorage.setItem(ACCESS_TOKEN_KEY, response.idToken);
     localStorage.setItem(REFRESH_TOKEN_KEY, response.refreshToken);
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
+  private handleRefreshTokenResponse(response: RefreshTokenResponse) {
+    this.authStore.accessToken.set(response.id_token);
+    this.authStore.refreshToken.set(response.refresh_token);
+
+    localStorage.setItem(ACCESS_TOKEN_KEY, response.id_token);
+    localStorage.setItem(REFRESH_TOKEN_KEY, response.refresh_token);
+  }
+
   private handleSignInResponse(response: SignInResponse) {
-    const expirationDate = new Date(
-      new Date().getTime() + parseInt(response.expiresIn) * 1000
-    );
     const user: User = {
       email: response.email,
       idToken: response.idToken,
       localId: response.localId,
-      expirationDate: expirationDate,
     };
 
     this.authStore.user.set(user);
     this.authStore.accessToken.set(response.idToken);
+    this.authStore.refreshToken.set(response.refreshToken);
 
     localStorage.setItem(ACCESS_TOKEN_KEY, response.idToken);
     localStorage.setItem(REFRESH_TOKEN_KEY, response.refreshToken);
