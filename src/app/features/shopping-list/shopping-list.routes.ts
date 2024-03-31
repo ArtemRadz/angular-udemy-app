@@ -6,5 +6,6 @@ export const shoppingListRoutes: Routes = [
     title: 'Shopping List',
     loadComponent: () =>
       import('./shopping-list.component').then(a => a.ShoppingListComponent),
+    data: { preload: true },
   },
 ];

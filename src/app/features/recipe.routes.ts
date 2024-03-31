@@ -12,6 +12,7 @@ export const recipePageRoutes: Routes = [
           import('./shopping-list/shopping-list.routes').then(
             a => a.shoppingListRoutes
           ),
+        data: { preload: true },
       },
       {
         path: 'recipes',
